@@ -1079,78 +1079,86 @@
     }
 
     /* =========================================================
-       7. CARTITAS INTERACTIVAS ("COSAS QUE ME ENCANTAN DE TI")
+       7. MOSAICO EDITORIAL DE LAS 27 RAZONES SOBRE MELISSA
     ========================================================= */
-    .notes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1.1rem;
-      margin-top: 1.8rem;
+    .reasons-container {
+      margin-top: 2rem;
     }
 
-    .note-card {
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .reason-card {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 1.35rem;
-      min-height: 155px;
+      border-radius: 20px;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
+      gap: 0.75rem;
       position: relative;
-      transition: transform 0.3s var(--ease-out-expo), background-color 0.3s ease, border-color 0.3s ease;
-      text-align: left;
+      transition: transform 0.3s var(--ease-out-expo), border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--shadow-card);
     }
 
-    .note-card:hover {
+    .reason-card:hover {
       transform: translateY(-4px);
       border-color: var(--mustard);
+      box-shadow: 0 16px 36px -12px rgba(34, 27, 23, 0.18);
     }
 
-    .note-card.is-revealed {
-      background: #FFF9EE;
-      border-color: var(--mustard);
-    }
-
-    .note-front {
+    .reason-header {
       display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .note-num {
+    .reason-number {
       font-family: var(--font-hand);
-      font-size: 1.35rem;
+      font-size: 1.5rem;
       color: var(--crimson);
+      font-weight: 700;
     }
 
-    .note-prompt {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 600;
-    }
-
-    .note-tap {
-      font-size: 0.78rem;
+    .reason-badge {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--ink-soft);
-      margin-top: 0.6rem;
+      background: var(--paper-deep);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
     }
 
-    .note-secret {
-      display: none;
-      font-size: 0.94rem;
+    .reason-text {
+      font-size: 0.95rem;
       color: var(--ink);
-      line-height: 1.55;
-      animation: fadeUp 0.35s var(--ease-out-expo);
+      line-height: 1.6;
     }
 
-    .note-card.is-revealed .note-front {
-      display: none;
+    /* Banner destacado de descubrimiento */
+    .discovery-banner {
+      margin-top: 2.5rem;
+      background: linear-gradient(135deg, var(--mustard-tint), #FCEFD5);
+      border: 1px solid rgba(213, 150, 42, 0.4);
+      border-radius: 22px;
+      padding: 1.75rem 2rem;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+      font-style: italic;
+      color: var(--ink);
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
     }
 
-    .note-card.is-revealed .note-secret {
-      display: block;
+    .discovery-banner strong {
+      color: var(--crimson);
+      font-style: normal;
     }
 
     /* =========================================================
@@ -1438,11 +1446,6 @@
       48%, 98% { transform: scaleY(0.15); }
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     @keyframes floatHeart {
       0% { opacity: 1; transform: translate(0, 0) scale(0.7); }
       100% { opacity: 0; transform: translate(var(--tx, 0px), -85px) scale(1.25); }
@@ -1490,6 +1493,7 @@
        2. BARRA SUPERIOR
   ========================================================== -->
   <header class="topbar">
+    <span class="brand-mini">CDMX, 10 de noviembre del 2026 </span>
     <span class="brand-mini">Para Melissa</span>
     <button class="sound-btn" id="soundToggle" type="button" aria-pressed="false">
       <span id="soundIcon">🔈</span>
@@ -1712,14 +1716,22 @@
     </section>
 
     <!-- =========================================================
-         7. CARTITAS INTERACTIVAS
+         7. MOSAICO EDITORIAL DE LAS 27 RAZONES SOBRE MELISSA
     ========================================================== -->
-    <section aria-labelledby="notesHeading">
-      <p class="section-eyebrow">Pequeñas verdades</p>
-      <h2 class="section-title" id="notesHeading">Cuatro cosas que adoro de ti</h2>
-      <p class="section-lead">Toca cada tarjeta para descubrir lo que dice.</p>
+    <section aria-labelledby="reasonsHeading">
+      <p class="section-eyebrow">Lo que adoro de ti</p>
+      <h2 class="section-title" id="reasonsHeading">27 razones por las que me encantas, Melissa</h2>
+      <p class="section-lead">Cada detalle tuyo hace que la vida se sienta más bonita.</p>
 
-      <div class="notes-grid" id="notesGrid"></div>
+      <div class="reasons-container">
+        <div class="reasons-grid" id="reasonsGrid">
+          <!-- Se inyecta dinámicamente o por HTML -->
+        </div>
+        
+        <div class="discovery-banner">
+          ✨ <strong>Me faltan más cosas por descubrir de ti</strong>, y muero por conocer cada una.
+        </div>
+      </div>
     </section>
 
     <!-- =========================================================
@@ -1734,15 +1746,11 @@
       <!-- Firma manuscrita y dedicatoria justo arriba del botón -->
       <div class="closing-signature-block">
         <svg class="closing-signature-svg" viewBox="0 0 320 130" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Firma manuscrita">
-          <!-- Trazo de la letra inicial estilizada (tipo Pi / J) -->
           <path d="M58 56 C63 45, 76 47, 82 54 C88 60, 102 55, 108 43" stroke="#FAF5EC" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M81 55 C79 65, 77 73, 76 80" stroke="#FAF5EC" stroke-width="3" stroke-linecap="round"/>
           <path d="M93 54 C91 64, 89 72, 87 79" stroke="#FAF5EC" stroke-width="3" stroke-linecap="round"/>
-          <!-- Bucle diagonal ascendente-descendente característico -->
           <path d="M123 32 C108 62, 85 95, 62 122 C76 112, 95 90, 109 64 C115 52, 121 40, 123 32 Z" stroke="#FAF5EC" stroke-width="3" stroke-linejoin="round"/>
-          <!-- Continuación cursiva con picos altos y rúbrica transversal -->
           <path d="M112 69 C117 64, 123 68, 121 76 C128 73, 134 65, 137 57 C136 65, 136 72, 141 73 C147 73, 155 48, 161 20 C160 40, 158 58, 160 66 C163 66, 166 60, 168 56 C168 62, 170 64, 174 62 C176 58, 178 55, 179 53 C179 59, 182 61, 187 58 C191 53, 195 34, 199 16 C198 34, 197 48, 200 52 C203 52, 207 46, 210 42" stroke="#FAF5EC" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Rúbrica diagonal larga cruzando toda la firma -->
           <path d="M23 99 C76 81, 135 64, 224 44 C232 42, 232 46, 221 50 C175 63, 114 78, 32 97 C112 75, 204 54, 298 41" stroke="#E7AE44" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <span class="closing-signature-line">Tu refugio y tu compañero en el camino.</span>
@@ -1795,15 +1803,13 @@
        CONFIGURACIÓN FÁCIL: EDITA AQUÍ TUS DATOS
     ========================================================= */
     const CONFIG = {
-      // 1. Pega aquí el enlace real de tu PDF en Google Drive:
+      // 1. Enlace real del PDF en Google Drive:
       drivePdfUrl: "https://drive.google.com/drive/folders/1nrFXSIgUdmm2fbbZZajeA72oZEWPEdrf?usp=sharing",
 
-      // 2. Imagen de portada del libro (si la guardas junto al HTML con este nombre,
-      //    reemplazará automáticamente la versión vectorial integrada):
+      // 2. Imagen de portada del libro:
       bookCoverSrc: "portada-libro.jpg",
 
-      // 3. Opcional: pon tu número con código de país (ej. "5215512345678")
-      //    para activar el botón de WhatsApp al final. Déjalo "" si no lo quieres.
+      // 3. Opcional: WhatsApp
       whatsappNumber: "",
       whatsappText: "Holaa, acabo de abrir el sticker y leer la página que hiciste para mí 💛",
 
@@ -1826,26 +1832,56 @@
         "La distancia se hace nula ,cuando se trata de ti"
       ],
 
-      // 5. Tarjetas secretas
-      notes: [
-        {
-          title: "Madurez",
-          secret: "Me encanta la claridad y el equilibrio con los que ves las cosas. Contigo las pláticas se sienten reales, sin poses ni prisas, y eso me transmite muchísima paz."
-        },
-        {
-          title: "Calidez",
-          secret: "Tienes una forma muy natural de hacer que el ambiente se sienta ligero y cercano. Basta compartir un rato contigo para mejorar el ritmo de cualquier día."
-        },
-        {
-          title: "Paciencia",
-          secret: "Admiro esa calma tan tuya para prestar atención a los detalles y entender lo que otros pasan por alto. Se nota el corazón que le pones a lo que haces."
-        },
-        {
-          title: "Complicidad",
-          secret: "Aunque soy introvertido y a veces me cuesta sacar mucha plática, contigo nunca se siente incómodo. Me encanta cómo sigues la conversación con tanta naturalidad y haces que todo fluya ligero."
-        }
+      // 5. Las 27 razones sobre Melissa
+      reasons: [
+        "Te fascinan las matemáticas y se te nota el brillo en los ojos cuando te pones a hablar de factorizar o de la fórmula general.",
+        "Tienes una vocación hermosa para la enseñanza y le da una alegría tremenda pararse frente a sus grupos de secundaria a dar clase.",
+        "Es super transparente y directa, de esas personas que neta valoran la honestidad y prefieren ir siempre con la verdad por delante.",
+        "Eres una persona súper cariñosa y de contacto físico, de las que no escatiman en dar abrazos sinceros y llenos de calidez.",
+        "Te encantan los videojuegos y me encanta esa parte freeky hablandome de  Genshin Impact o Brawl Stars.",
+        "Cargas con un sentido del humor bien negro y me sacas sonrisas de cualquier ocurrencia o de las anécdotas más absurdas.",
+        "Tienes la idea súper tierna y romántica de armar un álbum físico a mano, estilo Up, para guardar los recuerdos de su historia y contarlo a tus nietos.",
+        "Cuidas y conscientes a Doki, tu perrito, con una paciencia infinita, tratándolo literal como a tu propio bebé.",
+        "Te administras con un nivel de organización envidiable, tienes bien medidos tus tiempos, tus gastos y tus quincenas.",
+        "Tienes ese instinto protector de \"mamá gallina\" con tus amigos, a los que apoyas y cuida incondicionalmente.",
+        "Disfrutas un chorro los planes tranquilos y de calidad, ya sea ir al cine, salir a comer, caminar por los parques o platicar por horas.",
+        "Amas con locura los platillos de carne molida y unos buenos tacos de cecina ",
+        "Es superfan del pan dulce y lo gozas al máximo la temporada de pan de muerto.",
+        "Eres demasiado dulce a punto que te gustan demasiado los postres caseros como flan o Carlota de oreo.",
+        "Le vas al América (aunque sea una red flag y me encanta echarte carrilla por eso).",
+        "Demuestras una madurez mental cañona cuando procesa las cosas con cabeza fría, sabiendo frenar el impulso emocional para actuar con lógica.",
+        "Cargas con una responsabilidad familiar bien fuerte, siendo la hermana mayor que sostiene emocionalmente a tu mamá y a tu hermana Aurora en momentos pesados.",
+        "Muestras una gran capacidad para resolver problemas y mediar con paciencia, algo que noto desde cómo lidias con tus grupos de alumnos hasta con tus amigos.",
+        "Tienes claras tus intenciones acerca del tipo de relación seria y formal que buscas, añorando el hecho de un dia vestir de blanco,formar una familia",
+        "Eres un libro abierto conmigo desde el primer momento, dandome toda la confianza del mundo para que te escribas biblias o te mandes audios larguísimos sin pena.",
+        "Tienes una constancia padrísima para platicar conmigo, aguantando desveladas y avisandome de tus horarios para mantener la comunicación viva.",
+        "Me transmites un refugio y una paz cuando lo he necesitado, escuchándome con atención y validando lo que siento.",
+        "Se nota tu interés real al proponer planes, buscar puntos medios y hacer lo posible por salir a vernos y convivir en persona.",
+        "Me cuidas en el día a día avisándome siempre que llegas con bien a tu casa y compartiéndome tus ocurrencias y patoaventuras de la escuela.",
+        "Te tratsa con un cariño natural y super bonito, diciéndome \"mi vida linda\" y haciéndome sentir valorado en cada mensaje.",
+        "Eres rebuena escuchando y aconsejando, estando siempre firme cuando alguien de su círculo cercano la está pasando mal."
       ]
     };
+
+    /* =========================================================
+       INYECCIÓN DINÁMICA DEL MOSAICO DE RAZONES
+    ========================================================= */
+    const reasonsGrid = document.getElementById("reasonsGrid");
+    if (reasonsGrid) {
+      CONFIG.reasons.forEach((reason, index) => {
+        const numStr = String(index + 1).padStart(2, '0');
+        const card = document.createElement("div");
+        card.className = "reason-card";
+        card.innerHTML = `
+          <div class="reason-header">
+            <span class="reason-number">#${numStr}</span>
+            <span class="reason-badge">Detalle ${numStr}</span>
+          </div>
+          <p class="reason-text">${reason}</p>
+        `;
+        reasonsGrid.appendChild(card);
+      });
+    }
 
     /* =========================================================
        SVG PIXEL ART: SHIH TZU COLOR VACA (24x24 CRISP EDGES)
@@ -1853,15 +1889,12 @@
     function createCowShihTzuSVG(idSuffix = "") {
       return `
         <svg class="pixel-dog-svg" id="dogSvg${idSuffix}" viewBox="0 0 24 24" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Colita animada (mancha negra y punta blanca) -->
           <g class="dog-tail">
             <rect x="18" y="14" width="2" height="2" fill="#231D1A"/>
             <rect x="19" y="12" width="2" height="2" fill="#FFFFFF"/>
             <rect x="19" y="12" width="2" height="1" fill="#231D1A"/>
             <rect x="18" y="15" width="1" height="2" fill="#231D1A"/>
           </g>
-
-          <!-- Cuerpo blanco con manchas tipo vaca -->
           <rect x="7" y="13" width="10" height="7" fill="#FFFFFF"/>
           <rect x="6" y="14" width="1" height="5" fill="#231D1A"/>
           <rect x="17" y="14" width="1" height="5" fill="#231D1A"/>
@@ -1869,60 +1902,40 @@
           <rect x="13" y="17" width="2" height="1" fill="#231D1A"/>
           <rect x="7" y="16" width="3" height="2" fill="#231D1A"/>
           <rect x="8" y="18" width="2" height="1" fill="#231D1A"/>
-
-          <!-- Patitas -->
           <rect x="7" y="20" width="3" height="2" fill="#FFFFFF"/>
           <rect x="14" y="20" width="3" height="2" fill="#FFFFFF"/>
           <rect x="7" y="22" width="3" height="1" fill="#231D1A"/>
           <rect x="14" y="22" width="3" height="1" fill="#231D1A"/>
           <rect x="10" y="20" width="4" height="1" fill="#231D1A"/>
-
-          <!-- Collarcito rojo -->
           <rect x="7" y="12" width="10" height="1.5" fill="#B83A3E"/>
           <rect x="11" y="13" width="2" height="1.5" fill="#E7AE44"/>
-
-          <!-- Cabeza esponjosa Shih Tzu -->
           <rect x="6" y="3" width="12" height="9" fill="#FFFFFF"/>
           <rect x="5" y="4" width="14" height="7" fill="#FFFFFF"/>
           <rect x="8" y="2" width="8" height="1" fill="#FFFFFF"/>
-
-          <!-- Orejas caídas color vaca -->
           <rect x="4" y="4" width="2" height="6" fill="#231D1A"/>
           <rect x="3" y="6" width="1" height="4" fill="#231D1A"/>
           <rect x="18" y="4" width="2" height="6" fill="#231D1A"/>
           <rect x="20" y="6" width="1" height="4" fill="#231D1A"/>
-
-          <!-- Manchas faciales -->
           <rect x="6" y="4" width="4" height="5" fill="#231D1A"/>
           <rect x="7" y="3" width="3" height="1" fill="#231D1A"/>
           <rect x="15" y="4" width="3" height="3" fill="#231D1A"/>
-
-          <!-- Ojitos brillantes que parpadean -->
           <g class="dog-eyes normal-eyes">
             <rect x="8" y="6" width="1.5" height="2" fill="#0E0B0A"/>
             <rect x="8" y="6" width="1" height="1" fill="#FFFFFF"/>
             <rect x="15" y="6" width="1.5" height="2" fill="#0E0B0A"/>
             <rect x="15" y="6" width="1" height="1" fill="#FFFFFF"/>
           </g>
-
-          <!-- Ojitos felices arqueados al abrazarse -->
           <g class="hug-happy-eyes">
             <rect x="8" y="6" width="2" height="1" fill="#0E0B0A"/>
             <rect x="14" y="6" width="2" height="1" fill="#0E0B0A"/>
           </g>
-
-          <!-- Mejillas sonrojadas al abrazarse -->
           <g class="hug-blush">
             <rect x="7" y="8" width="2" height="1" fill="#F28D9E"/>
             <rect x="15" y="8" width="2" height="1" fill="#F28D9E"/>
           </g>
-
-          <!-- Hocico blanco + nariz + lengüita feliz -->
           <rect x="9" y="8" width="6" height="3" fill="#FFFFFF"/>
           <rect x="11" y="8" width="2" height="1.5" fill="#231D1A"/>
           <rect x="11" y="10" width="2" height="2" fill="#E97B86"/>
-
-          <!-- Patita extendida para el abrazo -->
           <g class="hug-arm-layer">
             <rect x="16" y="14" width="4" height="2" fill="#FFFFFF"/>
             <rect x="19" y="14" width="1" height="2" fill="#231D1A"/>
@@ -1932,86 +1945,61 @@
     }
 
     /* =========================================================
-       SVG PIXEL ART: GATO TUXEDO PELUDO (COMO EL DE LA FOTO)
+       SVG PIXEL ART: GATO TUXEDO PELUDO
     ========================================================= */
     function createTuxedoCatSVG(idSuffix = "") {
       return `
         <svg class="pixel-cat-svg" id="catSvg${idSuffix}" viewBox="0 0 24 24" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Cola negra peluda -->
           <g class="cat-tail">
             <rect x="18" y="15" width="2" height="3" fill="#181516"/>
             <rect x="19" y="12" width="2" height="4" fill="#181516"/>
             <rect x="20" y="10" width="2" height="3" fill="#2B2628"/>
           </g>
-
-          <!-- Cuerpo negro con pecho blanco muy esponjoso -->
           <rect x="7" y="13" width="10" height="7" fill="#181516"/>
           <rect x="8" y="12" width="8" height="7" fill="#FFFFFF"/>
           <rect x="7" y="13" width="1" height="4" fill="#FFFFFF"/>
           <rect x="16" y="13" width="1" height="4" fill="#FFFFFF"/>
           <rect x="9" y="19" width="6" height="1" fill="#F2EFE9"/>
-
-          <!-- Patitas delanteras blancas -->
           <rect x="8" y="20" width="3" height="2" fill="#FFFFFF"/>
           <rect x="13" y="20" width="3" height="2" fill="#FFFFFF"/>
           <rect x="8" y="22" width="3" height="1" fill="#2B2628"/>
           <rect x="13" y="22" width="3" height="1" fill="#2B2628"/>
-
-          <!-- Orejas puntiagudas negras -->
           <rect x="6" y="1" width="2" height="3" fill="#181516"/>
           <rect x="5" y="3" width="4" height="2" fill="#181516"/>
           <rect x="7" y="2" width="1" height="2" fill="#6E5D63"/>
-
           <rect x="16" y="1" width="2" height="3" fill="#181516"/>
           <rect x="15" y="3" width="4" height="2" fill="#181516"/>
           <rect x="16" y="2" width="1" height="2" fill="#6E5D63"/>
-
-          <!-- Cabeza negra peluda y esponjosa -->
           <rect x="5" y="5" width="14" height="7" fill="#181516"/>
           <rect x="4" y="6" width="16" height="5" fill="#181516"/>
           <rect x="3" y="7" width="1" height="3" fill="#2B2628"/>
           <rect x="20" y="7" width="1" height="3" fill="#2B2628"/>
-
-          <!-- Mancha blanca en triángulo entre los ojos y hocico blanco -->
           <rect x="11" y="5" width="2" height="2" fill="#FFFFFF"/>
           <rect x="10" y="7" width="4" height="2" fill="#FFFFFF"/>
           <rect x="7" y="9" width="10" height="3" fill="#FFFFFF"/>
           <rect x="8" y="11" width="8" height="1" fill="#F2EFE9"/>
-
-          <!-- Ojos verdosos expresivos (estado normal) -->
           <g class="dog-eyes normal-eyes">
             <rect x="7" y="6" width="3" height="2" fill="#7D9B56"/>
             <rect x="8" y="6" width="1" height="2" fill="#121011"/>
             <rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/>
-
             <rect x="14" y="6" width="3" height="2" fill="#7D9B56"/>
             <rect x="15" y="6" width="1" height="2" fill="#121011"/>
             <rect x="14" y="6" width="1" height="1" fill="#FFFFFF"/>
           </g>
-
-          <!-- Ojitos felices arqueados al abrazarse -->
           <g class="hug-happy-eyes">
             <rect x="7" y="7" width="3" height="1" fill="#FFFFFF"/>
             <rect x="14" y="7" width="3" height="1" fill="#FFFFFF"/>
           </g>
-
-          <!-- Mejillas sonrojadas al abrazarse -->
           <g class="hug-blush">
             <rect x="6" y="9" width="2" height="1" fill="#F28D9E"/>
             <rect x="16" y="9" width="2" height="1" fill="#F28D9E"/>
           </g>
-
-          <!-- Naricita rosa -->
           <rect x="11" y="9" width="2" height="1" fill="#F28D9E"/>
           <rect x="11" y="10" width="2" height="1" fill="#E36D82"/>
-
-          <!-- Bigotes blancos largos en pixel art -->
           <rect x="2" y="8" width="4" height="1" fill="#FFFFFF" opacity="0.9"/>
           <rect x="1" y="10" width="5" height="1" fill="#FFFFFF" opacity="0.9"/>
           <rect x="18" y="8" width="4" height="1" fill="#FFFFFF" opacity="0.9"/>
           <rect x="18" y="10" width="5" height="1" fill="#FFFFFF" opacity="0.9"/>
-
-          <!-- Patita blanca extendida hacia la izquierda para abrazar al Shih Tzu -->
           <g class="hug-arm-layer">
             <rect x="4" y="14" width="4" height="2" fill="#FFFFFF"/>
             <rect x="3" y="14" width="1" height="2" fill="#F2EFE9"/>
@@ -2021,22 +2009,17 @@
     }
 
     /* =========================================================
-       SVG PIXEL ART: PORTADA DEL LIBRO (MELISSA, SHIH TZU Y BANDERA)
+       SVG PIXEL ART: PORTADA DEL LIBRO
     ========================================================= */
     function createBookCoverPixelSVG() {
       return `
         <svg viewBox="0 0 64 86" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Cielo y horizonte -->
           <rect x="0" y="0" width="64" height="86" fill="#6FB4E8"/>
           <rect x="0" y="48" width="64" height="22" fill="#92C9F2"/>
           <rect x="34" y="68" width="30" height="18" fill="#4B3428"/>
-
-          <!-- Nube pixel art -->
           <rect x="48" y="23" width="8" height="2" fill="#FFFFFF"/>
           <rect x="45" y="25" width="14" height="3" fill="#FFFFFF"/>
           <rect x="44" y="28" width="16" height="2" fill="#E6F3FC"/>
-
-          <!-- Bandera ondeando (Rojo, Blanco, Verde) -->
           <rect x="4" y="11" width="6" height="28" fill="#C92A2A"/>
           <rect x="10" y="8" width="7" height="28" fill="#D93232"/>
           <rect x="17" y="5" width="6" height="27" fill="#B82222"/>
@@ -2044,8 +2027,6 @@
           <rect x="30" y="1" width="7" height="26" fill="#E2E8F0"/>
           <rect x="37" y="0" width="8" height="24" fill="#1F7A3E"/>
           <rect x="45" y="0" width="8" height="21" fill="#166230"/>
-
-          <!-- Nopales a la derecha -->
           <rect x="42" y="54" width="18" height="26" fill="#2A5E26"/>
           <rect x="37" y="50" width="8" height="10" fill="#3B8235"/>
           <rect x="38" y="49" width="6" height="1" fill="#4E9E47"/>
@@ -2056,8 +2037,6 @@
           <rect x="40" y="52" width="1" height="1" fill="#CBE8A8"/>
           <rect x="56" y="49" width="1" height="1" fill="#CBE8A8"/>
           <rect x="50" y="62" width="1" height="1" fill="#CBE8A8"/>
-
-          <!-- Shih Tzu con moñito sobre los nopales -->
           <rect x="42" y="31" width="4" height="2" fill="#F7EFE6"/>
           <rect x="43" y="33" width="2" height="1" fill="#B83A3E"/>
           <rect x="39" y="34" width="10" height="7" fill="#F7EFE6"/>
@@ -2074,8 +2053,6 @@
           <rect x="34" y="42" width="2" height="3" fill="#F7EFE6"/>
           <rect x="36" y="48" width="2" height="2" fill="#F7EFE6"/>
           <rect x="45" y="48" width="2" height="2" fill="#F7EFE6"/>
-
-          <!-- Asta de madera inclinada -->
           <rect x="53" y="0" width="2" height="14" fill="#8B4D24"/>
           <rect x="52" y="14" width="2" height="16" fill="#8B4D24"/>
           <rect x="51" y="30" width="2" height="16" fill="#8B4D24"/>
@@ -2085,8 +2062,6 @@
           <rect x="53" y="14" width="1" height="16" fill="#B56D3B"/>
           <rect x="52" y="30" width="1" height="16" fill="#B56D3B"/>
           <rect x="51" y="46" width="1" height="16" fill="#B56D3B"/>
-
-          <!-- Melissa (Cabello rizado, lentes, blusa verde con estrellas y suéter lila) -->
           <rect x="13" y="18" width="22" height="26" fill="#241712"/>
           <rect x="11" y="21" width="26" height="21" fill="#241712"/>
           <rect x="10" y="25" width="28" height="15" fill="#2D1D17"/>
@@ -2094,16 +2069,11 @@
           <rect x="33" y="22" width="2" height="2" fill="#3D2820"/>
           <rect x="11" y="32" width="2" height="2" fill="#3D2820"/>
           <rect x="34" y="33" width="2" height="2" fill="#3D2820"/>
-
-          <!-- Rostro -->
           <rect x="17" y="24" width="14" height="14" fill="#F5D0BC"/>
           <rect x="18" y="38" width="12" height="2" fill="#E8B9A2"/>
-          <!-- Flequillo -->
           <rect x="16" y="22" width="16" height="3" fill="#241712"/>
           <rect x="18" y="25" width="3" height="1" fill="#241712"/>
           <rect x="24" y="25" width="4" height="1" fill="#241712"/>
-
-          <!-- Cejas y lentes -->
           <rect x="18" y="27" width="4" height="1" fill="#241712"/>
           <rect x="26" y="27" width="4" height="1" fill="#241712"/>
           <rect x="17" y="29" width="6" height="1" fill="#2A211C"/>
@@ -2115,28 +2085,20 @@
           <rect x="25" y="33" width="6" height="1" fill="#2A211C"/>
           <rect x="25" y="29" width="1" height="5" fill="#2A211C"/>
           <rect x="30" y="29" width="1" height="5" fill="#2A211C"/>
-          <!-- Ojos -->
           <rect x="19" y="30" width="2" height="2" fill="#2D1D17"/>
           <rect x="19" y="30" width="1" height="1" fill="#FFFFFF"/>
           <rect x="27" y="30" width="2" height="2" fill="#2D1D17"/>
           <rect x="27" y="30" width="1" height="1" fill="#FFFFFF"/>
-          <!-- Mejillas y sonrisa -->
           <rect x="18" y="34" width="2" height="1" fill="#E89A90"/>
           <rect x="28" y="34" width="2" height="1" fill="#E89A90"/>
           <rect x="22" y="35" width="4" height="1" fill="#B85652"/>
-
-          <!-- Cuello -->
           <rect x="21" y="40" width="6" height="3" fill="#E8B9A2"/>
-
-          <!-- Blusa verde con estrellitas amarillas -->
           <rect x="17" y="43" width="15" height="26" fill="#74B865"/>
           <rect x="20" y="47" width="1" height="1" fill="#F7D844"/>
           <rect x="27" y="49" width="1" height="1" fill="#F7D844"/>
           <rect x="23" y="53" width="1" height="1" fill="#F7D844"/>
           <rect x="19" y="57" width="1" height="1" fill="#F7D844"/>
           <rect x="28" y="59" width="1" height="1" fill="#F7D844"/>
-
-          <!-- Suéter / cárdigan lila -->
           <rect x="11" y="43" width="7" height="28" fill="#D6D3E8"/>
           <rect x="9" y="46" width="3" height="24" fill="#BCB8D4"/>
           <rect x="30" y="43" width="6" height="25" fill="#D6D3E8"/>
@@ -2144,8 +2106,6 @@
           <rect x="34" y="58" width="13" height="2" fill="#B4B0CC"/>
           <rect x="47" y="51" width="5" height="6" fill="#F5D0BC"/>
           <rect x="48" y="50" width="3" height="1" fill="#E8B9A2"/>
-
-          <!-- Pantalón oscuro -->
           <rect x="16" y="69" width="18" height="17" fill="#252D3A"/>
           <rect x="24" y="72" width="1" height="14" fill="#1A2029"/>
         </svg>
@@ -2153,40 +2113,31 @@
     }
 
     /* =========================================================
-       SVG PIXEL ART: ESCUDO DEL CLUB AMÉRICA (28x28 CRISP EDGES)
+       SVG PIXEL ART: ESCUDO DEL CLUB AMÉRICA
     ========================================================= */
     function createAmericaCrestPixelSVG() {
       return `
         <svg viewBox="0 0 28 28" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- Borde exterior amarillo -->
           <rect x="9" y="1" width="10" height="26" fill="#FFE600"/>
           <rect x="6" y="2" width="16" height="24" fill="#FFE600"/>
           <rect x="4" y="4" width="20" height="20" fill="#FFE600"/>
           <rect x="2" y="6" width="24" height="16" fill="#FFE600"/>
           <rect x="1" y="9" width="26" height="10" fill="#FFE600"/>
-
-          <!-- Anillo azul marino -->
           <rect x="9" y="2" width="10" height="24" fill="#0A1C3E"/>
           <rect x="6" y="3" width="16" height="22" fill="#0A1C3E"/>
           <rect x="4" y="5" width="20" height="18" fill="#0A1C3E"/>
           <rect x="3" y="7" width="22" height="14" fill="#0A1C3E"/>
           <rect x="2" y="9" width="24" height="10" fill="#0A1C3E"/>
-
-          <!-- Interior amarillo del balón -->
           <rect x="10" y="4" width="8" height="20" fill="#FFE600"/>
           <rect x="7" y="5" width="14" height="18" fill="#FFE600"/>
           <rect x="5" y="7" width="18" height="14" fill="#FFE600"/>
           <rect x="4" y="10" width="20" height="8" fill="#FFE600"/>
-
-          <!-- Líneas del balón en azul marino -->
           <rect x="7" y="6" width="2" height="2" fill="#0A1C3E"/>
           <rect x="19" y="6" width="2" height="2" fill="#0A1C3E"/>
           <rect x="8" y="8" width="12" height="1" fill="#0A1C3E"/>
           <rect x="8" y="19" width="12" height="1" fill="#0A1C3E"/>
           <rect x="7" y="20" width="2" height="2" fill="#0A1C3E"/>
           <rect x="19" y="20" width="2" height="2" fill="#0A1C3E"/>
-
-          <!-- Silueta del continente americano en azul marino -->
           <rect x="12" y="4" width="3" height="2" fill="#0A1C3E"/>
           <rect x="10" y="6" width="6" height="3" fill="#0A1C3E"/>
           <rect x="11" y="9" width="5" height="3" fill="#0A1C3E"/>
@@ -2195,17 +2146,11 @@
           <rect x="13" y="16" width="4" height="3" fill="#0A1C3E"/>
           <rect x="14" y="19" width="3" height="3" fill="#0A1C3E"/>
           <rect x="14" y="22" width="2" height="2" fill="#0A1C3E"/>
-
-          <!-- Contorno azul marino para letras C y A -->
           <rect x="4" y="10" width="6" height="8" fill="#0A1C3E"/>
           <rect x="18" y="10" width="6" height="8" fill="#0A1C3E"/>
-
-          <!-- Letra C roja -->
           <rect x="6" y="11" width="3" height="1" fill="#E62E2D"/>
           <rect x="5" y="12" width="2" height="4" fill="#E62E2D"/>
           <rect x="6" y="16" width="3" height="1" fill="#E62E2D"/>
-
-          <!-- Letra A roja -->
           <rect x="20" y="11" width="2" height="1" fill="#E62E2D"/>
           <rect x="19" y="12" width="1" height="5" fill="#E62E2D"/>
           <rect x="22" y="12" width="1" height="5" fill="#E62E2D"/>
@@ -2214,7 +2159,6 @@
       `;
     }
 
-    // Insertamos las ilustraciones Pixel Art de forma segura
     function mountSlot(id, markup) {
       const el = document.getElementById(id);
       if (el) el.innerHTML = markup;
@@ -2229,7 +2173,7 @@
     mountSlot("americaCrestSlot", createAmericaCrestPixelSVG());
 
     /* =========================================================
-       AUDIO SUAVE SINTETIZADO (SIN ARCHIVOS EXTERNOS)
+       AUDIO SUAVE SINTETIZADO
     ========================================================= */
     let audioCtx = null;
     let soundEnabled = false;
@@ -2268,7 +2212,7 @@
     }
 
     /* =========================================================
-       APERTURA DESDE STICKER NFC (PANTALLA DE BIENVENIDA)
+       APERTURA DESDE STICKER NFC
     ========================================================= */
     const nfcGate = document.getElementById("nfcGate");
     const openExperienceBtn = document.getElementById("openExperienceBtn");
@@ -2289,7 +2233,7 @@
     }
 
     /* =========================================================
-       LIBRO INTERACTIVO 3D + LINK DE DRIVE
+       LIBRO INTERACTIVO 3D
     ========================================================= */
     const drivePdfLink = document.getElementById("drivePdfLink");
     if (drivePdfLink) {
@@ -2308,9 +2252,7 @@
       const next = typeof forceState === "boolean" ? forceState : !book3d.classList.contains("is-open");
       book3d.classList.toggle("is-open", next);
       book3d.setAttribute("aria-expanded", String(next));
-      if (next) {
-        playChime(587.33, 0.3);
-      }
+      if (next) playChime(587.33, 0.3);
     }
 
     book3d.addEventListener("click", (e) => {
@@ -2333,7 +2275,7 @@
     });
 
     /* =========================================================
-       ABRAZO INTERACTIVO PIXEL ART (SHIH TZU + GATO TUXEDO)
+       ABRAZO INTERACTIVO PIXEL ART
     ========================================================= */
     const hugStage = document.getElementById("hugStage");
     const hugHeartBtn = document.getElementById("hugHeartBtn");
@@ -2425,7 +2367,7 @@
     });
 
     /* =========================================================
-       INTERACCIÓN CON EL SHIH TZU PIXEL ART COLOR VACA
+       INTERACCIÓN CON EL SHIH TZU PIXEL ART
     ========================================================= */
     let phraseIdx = 0;
     let happiness = 45;
@@ -2469,34 +2411,7 @@
     });
 
     /* =========================================================
-       CARTITAS SECRETAS
-    ========================================================= */
-    const notesGrid = document.getElementById("notesGrid");
-    CONFIG.notes.forEach((item, idx) => {
-      const card = document.createElement("button");
-      card.type = "button";
-      card.className = "note-card";
-      card.innerHTML = `
-        <div class="note-front">
-          <span class="note-num">#0${idx + 1}</span>
-          <span class="note-prompt">${item.title}</span>
-          <span class="note-tap">Toca para revelar ✦</span>
-        </div>
-        <div class="note-secret">${item.secret}</div>
-      `;
-      card.addEventListener("click", () => {
-        card.classList.toggle("is-revealed");
-        if (card.classList.contains("is-revealed")) {
-          playChime(659.25, 0.22);
-          const r = card.getBoundingClientRect();
-          spawnHearts(r.left + r.width / 2, r.top + 20, 3);
-        }
-      });
-      notesGrid.appendChild(card);
-    });
-
-    /* =========================================================
-       CIERRE Y PARTÍCULAS DE CORAZONES
+       PARTÍCULAS Y CORAZONES
     ========================================================= */
     function spawnHearts(x, y, count = 6) {
       const icons = ["💛", "🐾", "❤️", "✨"];
@@ -2522,7 +2437,7 @@
     });
 
     /* =========================================================
-       INTERACCIÓN DE POSDATA (ESCUDO DEL AMÉRICA -> RATAS Y RED FLAGS)
+       POSDATA (ESCUDO DEL AMÉRICA)
     ========================================================= */
     function spawnRedFlagParticles(x, y, count = 14) {
       const icons = ["🚩", "🐀", "🚩", "🐀", "🐭"];
@@ -2563,7 +2478,6 @@
       setTimeout(() => playChime(261.63, 0.24), 100);
     });
 
-    // Activar botón de WhatsApp si agregaste tu número en CONFIG
     if (CONFIG.whatsappNumber.trim() !== "") {
       const wa = document.getElementById("whatsappBtn");
       wa.style.display = "inline-flex";

@@ -1,0 +1,2574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FAF5EC" />
+  <title>Para Melissa 💛</title>
+
+  <!-- Tipografías editoriales y manuscritas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      /* Paleta cálida inspirada en la foto de Melissa */
+      --paper: #FAF5EC;
+      --paper-deep: #F1E8D8;
+      --card: #FFFDF9;
+      --ink: #221B17;
+      --ink-soft: #64574F;
+      --mustard: #D5962A;
+      --mustard-bright: #E7AE44;
+      --mustard-tint: #F7E8C6;
+      --crimson: #B83A3E;
+      --crimson-soft: #F6DFDF;
+      --line: rgba(34, 27, 23, 0.11);
+      --shadow-warm: 0 18px 45px -16px rgba(34, 27, 23, 0.18);
+      --shadow-card: 0 10px 28px -10px rgba(34, 27, 23, 0.14);
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-hand: 'Caveat', cursive;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(213, 150, 42, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 88% 72%, rgba(184, 58, 62, 0.06) 0%, transparent 42%);
+    }
+
+    /* Sutil textura de papel artesanal */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Cinta superior inspirada en cuadros mostaza */
+    .plaid-ribbon {
+      height: 6px;
+      width: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--mustard) 0 18px,
+        var(--ink) 18px 26px,
+        var(--mustard-tint) 26px 34px,
+        var(--ink) 34px 42px
+      );
+      opacity: 0.88;
+    }
+
+    /* =========================================================
+       1. PANTALLA DE BIENVENIDA NFC (CARTA SELLADA)
+    ========================================================= */
+    .nfc-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo), visibility 0.8s;
+    }
+
+    .nfc-gate.is-opened {
+      opacity: 0;
+      transform: translateY(-24px) scale(1.02);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .gate-card {
+      max-width: 400px;
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 2.5rem 1.75rem 2.25rem;
+      box-shadow: var(--shadow-warm);
+      position: relative;
+    }
+
+    .gate-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      background: var(--paper-deep);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.4rem;
+    }
+
+    .gate-dog-wrap {
+      width: 108px;
+      height: 108px;
+      margin: 0 auto 1rem;
+      animation: gentleBounce 2.6s ease-in-out infinite;
+    }
+
+    .gate-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 7vw, 2.6rem);
+      line-height: 1.1;
+      font-weight: 600;
+      margin-bottom: 0.65rem;
+    }
+
+    .gate-title em {
+      font-style: italic;
+      color: var(--crimson);
+    }
+
+    .gate-subtitle {
+      color: var(--ink-soft);
+      font-size: 0.96rem;
+      margin-bottom: 1.9rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-height: 52px;
+      padding: 0.9rem 1.85rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 10px 24px -8px rgba(34, 27, 23, 0.45);
+      transition: transform 0.25s var(--ease-out-expo), background-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      transform: translateY(-2px);
+      background: #352A24;
+      box-shadow: 0 14px 28px -8px rgba(34, 27, 23, 0.5);
+      outline: none;
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .wax-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--mustard-bright);
+      display: inline-block;
+    }
+
+    /* =========================================================
+       2. CONTENEDOR PRINCIPAL & CONTROLES SUPERIORES
+    ========================================================= */
+    .topbar {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.15rem 1.25rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .brand-mini {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+
+    .sound-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      min-height: 38px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .sound-btn:hover {
+      background: var(--paper-deep);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 6.5rem;
+    }
+
+    section {
+      margin-bottom: 5.5rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 5vw, 2.7rem);
+      line-height: 1.15;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-lead {
+      color: var(--ink-soft);
+      max-width: 56ch;
+      font-size: 1rem;
+    }
+
+    /* =========================================================
+       3. HERO EDITORIAL: MELISSA + SU FOTO PRINCIPAL
+    ========================================================= */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+      align-items: center;
+      padding-top: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 3.2rem;
+        padding-top: 2rem;
+      }
+    }
+
+    .hero-copy h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 9vw, 4.5rem);
+      line-height: 1.02;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.15rem;
+    }
+
+    .hero-copy h1 .name-highlight {
+      display: inline-block;
+      font-style: italic;
+      color: var(--crimson);
+      position: relative;
+    }
+
+    .hero-copy h1 .name-highlight::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0.06em;
+      height: 0.16em;
+      background: var(--mustard-tint);
+      z-index: -1;
+      border-radius: 4px;
+    }
+
+    .hero-desc {
+      font-size: 1.06rem;
+      color: var(--ink-soft);
+      margin-bottom: 1.75rem;
+      max-width: 46ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      align-items: center;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 52px;
+      padding: 0.85rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-ghost:hover {
+      background: var(--mustard-tint);
+      transform: translateY(-2px);
+    }
+
+    /* Marco tipo recuerdo / polaroid artesanal */
+    .hero-photo-frame {
+      position: relative;
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 14px 14px 54px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-warm);
+      transform: rotate(1.5deg);
+      transition: transform 0.5s var(--ease-out-expo);
+      cursor: pointer;
+    }
+
+    .hero-photo-frame:hover {
+      transform: rotate(0deg) translateY(-4px);
+    }
+
+    .washi-tape {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 112px;
+      height: 26px;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(213, 150, 42, 0.72) 0 10px,
+        rgba(247, 232, 198, 0.85) 10px 18px
+      );
+      border-radius: 3px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      z-index: 2;
+    }
+
+    .photo-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--paper-deep);
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s var(--ease-out-expo);
+    }
+
+    .hero-photo-frame:hover .photo-box img {
+      transform: scale(1.03);
+    }
+
+    .photo-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--ink-soft);
+      background: linear-gradient(145deg, var(--paper-deep), var(--mustard-tint));
+      font-size: 0.9rem;
+    }
+
+    .photo-fallback.is-visible {
+      display: flex;
+    }
+
+    .photo-upload-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.95rem;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(34, 27, 23, 0.22);
+    }
+
+    .frame-caption {
+      position: absolute;
+      bottom: 12px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-hand);
+      font-size: 1.38rem;
+      color: var(--ink);
+    }
+
+    /* =========================================================
+       4. EL LIBRO INTERACTIVO 3D (PORTADA ILUSTRADA + DRIVE PDF)
+    ========================================================= */
+    .book-section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 2.5rem 1.4rem;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .book-section {
+        padding: 3.5rem 2.5rem;
+      }
+    }
+
+    .book-stage {
+      perspective: 1600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2.4rem auto 1.6rem;
+      min-height: 365px;
+    }
+
+    .book-3d {
+      position: relative;
+      width: min(272px, 78vw);
+      height: 365px;
+      transform-style: preserve-3d;
+      transition: transform 0.8s var(--ease-out-expo);
+      cursor: pointer;
+    }
+
+    @media (min-width: 640px) {
+      .book-3d.is-open {
+        transform: translateX(115px);
+      }
+    }
+
+    /* Página interior derecha */
+    .book-inside {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #EFE6D5 0%, #FFFDF8 14%, #FFFDF8 100%);
+      border-radius: 4px 16px 16px 4px;
+      border: 1px solid rgba(34, 27, 23, 0.14);
+      box-shadow: 0 22px 45px -15px rgba(34, 27, 23, 0.25);
+      padding: 1.75rem 1.45rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+      z-index: 1;
+    }
+
+    .book-inside-header {
+      font-family: var(--font-hand);
+      font-size: 1.45rem;
+      color: var(--crimson);
+      margin-bottom: 0.4rem;
+    }
+
+    .book-inside-text {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .book-cta-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .book-pdf-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 48px;
+      padding: 0.75rem 1.1rem;
+      background: var(--crimson);
+      color: #FFFDF9;
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 8px 18px -6px rgba(184, 58, 62, 0.55);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .book-pdf-btn:hover {
+      background: #9E2E32;
+      transform: translateY(-2px);
+    }
+
+    .book-close-link {
+      background: none;
+      border: none;
+      color: var(--ink-soft);
+      font-size: 0.8rem;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0.25rem;
+      font-family: var(--font-body);
+    }
+
+    /* Portada frontal 3D */
+    .book-cover {
+      position: absolute;
+      inset: 0;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transition: transform 0.95s var(--ease-out-expo);
+      z-index: 3;
+      border-radius: 4px 16px 16px 4px;
+    }
+
+    .book-3d.is-open .book-cover {
+      transform: rotateY(-158deg);
+    }
+
+    .book-front,
+    .book-front-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 4px 16px 16px 4px;
+    }
+
+    .book-front {
+      background: #77B7E8;
+      overflow: visible;
+      border: 1px solid rgba(34, 27, 23, 0.22);
+      box-shadow:
+        inset 10px 0 18px rgba(0, 0, 0, 0.22),
+        0 20px 42px -12px rgba(34, 27, 23, 0.42);
+    }
+
+    .book-cover-art {
+      position: absolute;
+      inset: 0;
+      border-radius: 4px 15px 15px 4px;
+      overflow: hidden;
+    }
+
+    .book-cover-svg-bg,
+    .book-cover-svg-bg svg,
+    .book-custom-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .book-custom-img {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    /* Lomo dorado izquierdo */
+    .book-front::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 14px;
+      background: linear-gradient(90deg, #E2A93B 0%, #B87B19 100%);
+      border-right: 1px solid rgba(34, 27, 23, 0.35);
+      border-radius: 4px 0 0 4px;
+      z-index: 4;
+    }
+
+    /* Banner inferior azul con el título de la segunda imagen */
+    .book-banner {
+      position: absolute;
+      left: 14px;
+      right: 46px;
+      bottom: 26px;
+      z-index: 3;
+      text-align: left;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(13, 35, 58, 0.3);
+    }
+
+    .book-banner-top {
+      background: rgba(114, 165, 209, 0.94);
+      padding: 0.42rem 0.65rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.15;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+
+    .book-banner-bottom {
+      background: rgba(8, 78, 118, 0.96);
+      padding: 0.42rem 0.65rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.68rem;
+      line-height: 1.3;
+      color: #EAF5FF;
+    }
+
+    /* Cinta separadora roja */
+    .book-ribbon {
+      position: absolute;
+      bottom: -18px;
+      right: 30px;
+      width: 22px;
+      height: 52px;
+      background: var(--crimson);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      transition: opacity 0.4s ease;
+      z-index: 5;
+    }
+
+    .book-3d.is-open .book-ribbon {
+      opacity: 0;
+    }
+
+    /* Reverso interior de la portada al abrirse */
+    .book-front-back {
+      background: #F4ECDD;
+      transform: rotateY(180deg);
+      border: 1px solid var(--line);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: inset -10px 0 18px rgba(34, 27, 23, 0.06);
+    }
+
+    .book-exlibris {
+      border: 1px dashed rgba(34, 27, 23, 0.25);
+      padding: 1.2rem;
+      border-radius: 10px;
+      font-family: var(--font-hand);
+      font-size: 1.3rem;
+      color: var(--ink-soft);
+    }
+
+    /* =========================================================
+       5. ESCENA INTERACTIVA PIXEL ART: SHIH TZU & GATO TUXEDO
+    ========================================================= */
+    .hug-section {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 2.5rem 1.4rem;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .hug-section {
+        padding: 3.2rem 2.5rem;
+      }
+    }
+
+    .hug-stage {
+      position: relative;
+      max-width: 560px;
+      margin: 2rem auto 1.25rem;
+      padding: 2.6rem 1rem 2rem;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255, 253, 249, 0.92) 0%, rgba(247, 232, 198, 0.65) 100%);
+      border: 1px dashed rgba(34, 27, 23, 0.18);
+      overflow: hidden;
+    }
+
+    .hug-stage::after {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      bottom: 1.55rem;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(34, 27, 23, 0.08);
+      z-index: 0;
+    }
+
+    .hug-floating-heart {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px) scale(0.4);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 5;
+      transition: opacity 0.45s var(--ease-out-expo), transform 0.65s var(--ease-out-expo);
+    }
+
+    .hug-stage.is-hugging .hug-floating-heart {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+      animation: hugHeartFloat 1.5s ease-in-out infinite alternate;
+    }
+
+    .hug-arena {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: clamp(0.75rem, 4vw, 2.2rem);
+      min-height: 165px;
+    }
+
+    .hug-pet {
+      width: clamp(118px, 28vw, 148px);
+      height: clamp(118px, 28vw, 148px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      transition: transform 0.85s var(--ease-out-expo);
+      will-change: transform;
+    }
+
+    .hug-pet svg {
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+      overflow: visible;
+    }
+
+    /* Desplazamiento al darse el abrazo */
+    .hug-stage.is-hugging .hug-pet--dog {
+      transform: translateX(clamp(32px, 8vw, 56px)) rotate(5deg) scale(1.04);
+    }
+
+    .hug-stage.is-hugging .hug-pet--cat {
+      transform: translateX(clamp(-32px, -8vw, -56px)) rotate(-5deg) scale(1.04);
+    }
+
+    .hug-stage.is-squeeze .hug-pet--dog {
+      transform: translateX(clamp(36px, 9vw, 62px)) rotate(8deg) scale(1.09, 0.96);
+    }
+
+    .hug-stage.is-squeeze .hug-pet--cat {
+      transform: translateX(clamp(-36px, -9vw, -62px)) rotate(-8deg) scale(1.09, 0.96);
+    }
+
+    .hug-blush,
+    .hug-arm-layer,
+    .hug-happy-eyes {
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .hug-stage.is-hugging .hug-blush,
+    .hug-stage.is-hugging .hug-arm-layer,
+    .hug-stage.is-hugging .hug-happy-eyes {
+      opacity: 1;
+    }
+
+    .hug-stage.is-hugging .normal-eyes {
+      opacity: 0;
+    }
+
+    .hug-stage.is-hugging .dog-tail,
+    .hug-stage.is-hugging .cat-tail {
+      animation-duration: 0.22s;
+    }
+
+    .cat-tail {
+      transform-origin: 19px 17px;
+      animation: wagCatTail 1.1s ease-in-out infinite alternate;
+    }
+
+    /* Botón de corazón central */
+    .hug-heart-trigger {
+      position: relative;
+      z-index: 4;
+      align-self: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid rgba(184, 58, 62, 0.25);
+      background: #FFFDF9;
+      box-shadow: 0 10px 24px -6px rgba(184, 58, 62, 0.38);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.45s var(--ease-out-expo), opacity 0.35s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+      animation: heartBeatIdle 1.8s ease-in-out infinite;
+    }
+
+    .hug-heart-trigger:hover,
+    .hug-heart-trigger:focus-visible {
+      transform: scale(1.12);
+      background: var(--crimson-soft);
+      box-shadow: 0 14px 28px -6px rgba(184, 58, 62, 0.52);
+      outline: none;
+    }
+
+    .hug-heart-trigger:active {
+      transform: scale(0.94);
+    }
+
+    .hug-stage.is-hugging .hug-heart-trigger {
+      transform: translateY(-64px) scale(0.86);
+      background: var(--crimson);
+      border-color: #FFFDF9;
+      animation: none;
+    }
+
+    .hug-stage.is-hugging .hug-heart-trigger svg rect {
+      fill: #FFFDF9;
+    }
+
+    .hug-status-text {
+      font-family: var(--font-hand);
+      font-size: 1.48rem;
+      color: var(--ink);
+      min-height: 2.1rem;
+      margin-top: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .hug-stage.is-hugging + .hug-status-text {
+      color: var(--crimson);
+    }
+
+    .hug-reset-btn {
+      margin-top: 0.55rem;
+      background: none;
+      border: none;
+      color: var(--ink-soft);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      text-decoration: underline;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+    }
+
+    .hug-reset-btn.is-visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @keyframes heartBeatIdle {
+      0%, 100% { transform: scale(1); }
+      20% { transform: scale(1.12); }
+      40% { transform: scale(0.98); }
+      60% { transform: scale(1.08); }
+    }
+
+    @keyframes hugHeartFloat {
+      0% { transform: translateX(-50%) translateY(0) scale(1); }
+      100% { transform: translateX(-50%) translateY(-6px) scale(1.1); }
+    }
+
+    @keyframes wagCatTail {
+      0% { transform: rotate(-6deg); }
+      100% { transform: rotate(10deg); }
+    }
+
+    /* =========================================================
+       6. SHIH TZU PIXEL ART COLOR VACA (INTERACTIVO)
+    ========================================================= */
+    .pet-playground {
+      background: linear-gradient(135deg, var(--mustard-tint) 0%, #F7EFE0 100%);
+      border: 1px solid rgba(213, 150, 42, 0.35);
+      border-radius: 28px;
+      padding: 2.2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+      align-items: center;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    @media (min-width: 720px) {
+      .pet-playground {
+        grid-template-columns: 0.9fr 1.1fr;
+        padding: 2.8rem;
+      }
+    }
+
+    .pet-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 220px;
+      background: rgba(255, 253, 249, 0.72);
+      border-radius: 22px;
+      border: 1px dashed rgba(34, 27, 23, 0.16);
+      padding: 1.5rem 1rem 1rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .speech-bubble {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 0.65rem 1.05rem;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink);
+      box-shadow: 0 6px 16px rgba(34, 27, 23, 0.08);
+      margin-bottom: 0.75rem;
+      position: relative;
+      max-width: 285px;
+      text-align: center;
+      transition: transform 0.25s var(--ease-out-expo);
+    }
+
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 12px;
+      height: 12px;
+      background: var(--card);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pixel-dog-svg {
+      width: 136px;
+      height: 136px;
+      image-rendering: pixelated;
+      transition: transform 0.25s var(--ease-out-expo);
+    }
+
+    .pixel-dog-svg.is-jumping {
+      animation: dogJump 0.48s var(--ease-out-expo);
+    }
+
+    .dog-tail {
+      transform-origin: 18px 16px;
+      animation: wagTail 0.6s ease-in-out infinite alternate;
+    }
+
+    .pixel-dog-svg.happy-fast .dog-tail {
+      animation-duration: 0.18s;
+    }
+
+    .dog-eyes {
+      transform-origin: center;
+      animation: blinkEyes 4.2s infinite;
+    }
+
+    .pet-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.25rem;
+    }
+
+    .pet-btn {
+      min-height: 44px;
+      padding: 0.6rem 1.05rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .pet-btn:hover {
+      background: var(--ink);
+      color: var(--paper);
+      transform: translateY(-2px);
+    }
+
+    .love-meter {
+      margin-top: 1.15rem;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .love-bar {
+      width: 100%;
+      height: 10px;
+      background: rgba(34, 27, 23, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 0.35rem;
+    }
+
+    .love-fill {
+      height: 100%;
+      width: 45%;
+      background: linear-gradient(90deg, var(--mustard), var(--crimson));
+      border-radius: 999px;
+      transition: width 0.4s var(--ease-out-expo);
+    }
+
+    /* =========================================================
+       7. CARTITAS INTERACTIVAS ("COSAS QUE ME ENCANTAN DE TI")
+    ========================================================= */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.8rem;
+    }
+
+    .note-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1.35rem;
+      min-height: 155px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s var(--ease-out-expo), background-color 0.3s ease, border-color 0.3s ease;
+      text-align: left;
+    }
+
+    .note-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--mustard);
+    }
+
+    .note-card.is-revealed {
+      background: #FFF9EE;
+      border-color: var(--mustard);
+    }
+
+    .note-front {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .note-num {
+      font-family: var(--font-hand);
+      font-size: 1.35rem;
+      color: var(--crimson);
+    }
+
+    .note-prompt {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .note-tap {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-top: 0.6rem;
+    }
+
+    .note-secret {
+      display: none;
+      font-size: 0.94rem;
+      color: var(--ink);
+      line-height: 1.55;
+      animation: fadeUp 0.35s var(--ease-out-expo);
+    }
+
+    .note-card.is-revealed .note-front {
+      display: none;
+    }
+
+    .note-card.is-revealed .note-secret {
+      display: block;
+    }
+
+    /* =========================================================
+       8. CIERRE ESPECIAL
+    ========================================================= */
+    .closing-box {
+      text-align: center;
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 30px;
+      padding: 3rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-warm);
+    }
+
+    .closing-box h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+    }
+
+    .closing-box h2 em {
+      color: var(--mustard-bright);
+      font-style: italic;
+    }
+
+    .closing-box p {
+      color: rgba(250, 245, 236, 0.85);
+      max-width: 54ch;
+      margin: 0 auto 1.65rem;
+      line-height: 1.72;
+    }
+
+    .closing-signature-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0 auto 1.9rem;
+    }
+
+    .closing-signature-svg {
+      width: min(230px, 65vw);
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(231, 174, 68, 0.18));
+    }
+
+    .closing-signature-line {
+      font-family: var(--font-hand);
+      font-size: 1.48rem;
+      color: var(--mustard-bright);
+      letter-spacing: 0.01em;
+    }
+
+    .closing-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+    }
+
+    .btn-warm {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 52px;
+      padding: 0.85rem 1.65rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--mustard-bright);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.96rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.25s var(--ease-out-expo), background 0.2s ease;
+    }
+
+    .btn-warm:hover {
+      transform: translateY(-2px);
+      background: #F3BE5A;
+    }
+
+    /* Posdata (PD.) con escudo del América pixeleado */
+    .closing-pd {
+      margin-top: 2.1rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed rgba(250, 245, 236, 0.22);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .closing-pd-text {
+      font-family: var(--font-hand);
+      font-size: 1.48rem;
+      color: var(--mustard-tint);
+      margin: 0 !important;
+      line-height: 1.3;
+    }
+
+    .america-pixel-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(231, 174, 68, 0.35);
+      border-radius: 20px;
+      padding: 0.65rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s var(--ease-out-expo), background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .america-pixel-btn:hover,
+    .america-pixel-btn:focus-visible {
+      transform: scale(1.08) rotate(-3deg);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--crimson);
+      outline: none;
+    }
+
+    .america-pixel-btn:active {
+      transform: scale(0.95);
+    }
+
+    .america-pixel-btn.is-shaking {
+      animation: pdShake 0.48s ease-in-out;
+    }
+
+    .america-pixel-btn svg {
+      width: 66px;
+      height: 66px;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    .closing-pd-hint {
+      font-size: 0.82rem;
+      color: rgba(250, 245, 236, 0.68);
+      min-height: 1.3em;
+      transition: color 0.25s ease;
+    }
+
+    .closing-pd-hint.is-alert {
+      color: #FF8E92;
+      font-weight: 600;
+    }
+
+    @keyframes pdShake {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      20% { transform: translateX(-6px) rotate(-8deg); }
+      40% { transform: translateX(6px) rotate(8deg); }
+      60% { transform: translateX(-5px) rotate(-5deg); }
+      80% { transform: translateX(5px) rotate(5deg); }
+    }
+
+    /* Compañero flotante en la esquina */
+    .floating-pup {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 60;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: var(--shadow-card);
+      cursor: pointer;
+      transition: transform 0.25s var(--ease-out-expo);
+    }
+
+    .floating-pup:hover {
+      transform: translateY(-3px);
+    }
+
+    .floating-pup svg {
+      width: 34px;
+      height: 34px;
+    }
+
+    .floating-pup span {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* Lightbox para ampliar fotos */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(24, 18, 15, 0.86);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-inner {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 14px 14px 20px;
+      max-width: 440px;
+      width: 100%;
+      position: relative;
+      text-align: center;
+    }
+
+    .lightbox-inner img {
+      width: 100%;
+      max-height: 65vh;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      margin-bottom: 0.85rem;
+    }
+
+    .polaroid-note {
+      font-family: var(--font-hand);
+      font-size: 1.38rem;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: var(--crimson);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Partículas de corazones */
+    .pixel-heart-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 110;
+      font-size: 1.15rem;
+      animation: floatHeart 1.3s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes dogJump {
+      0% { transform: translateY(0) scale(1); }
+      35% { transform: translateY(-22px) scale(1.06, 0.96); }
+      70% { transform: translateY(0) scale(0.96, 1.04); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes wagTail {
+      0% { transform: rotate(-10deg); }
+      100% { transform: rotate(16deg); }
+    }
+
+    @keyframes blinkEyes {
+      0%, 46%, 50%, 96%, 100% { transform: scaleY(1); }
+      48%, 98% { transform: scaleY(0.15); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatHeart {
+      0% { opacity: 1; transform: translate(0, 0) scale(0.7); }
+      100% { opacity: 0; transform: translate(var(--tx, 0px), -85px) scale(1.25); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="plaid-ribbon" aria-hidden="true"></div>
+
+  <!-- =========================================================
+       1. PANTALLA DE ENTRADA (STICKER NFC)
+  ========================================================== -->
+  <div class="nfc-gate" id="nfcGate" role="dialog" aria-modal="true" aria-label="Bienvenida para Melissa">
+    <div class="gate-card">
+      <div class="gate-tag">
+        <span class="wax-dot"></span>
+        <span>Hecho solo para ti</span>
+      </div>
+
+      <!-- Perrito Shih Tzu Pixel Art color vaca -->
+      <div class="gate-dog-wrap" id="gateDogSlot" aria-hidden="true"></div>
+
+      <h2 class="gate-title">Hola, <em>Melissa</em></h2>
+      <p class="gate-subtitle">
+        Si llegaste aquí tocando el sticker, es porque guardé un pedacito especial pensado únicamente en ti.
+      </p>
+
+      <button class="btn-primary" id="openExperienceBtn">
+        <span>Abrir mi detalle</span>
+        <span aria-hidden="true">💛</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       2. BARRA SUPERIOR
+  ========================================================== -->
+  <header class="topbar">
+    <span class="brand-mini">Para Melissa</span>
+    <button class="sound-btn" id="soundToggle" type="button" aria-pressed="false">
+      <span id="soundIcon">🔈</span>
+      <span id="soundLabel">Sonido suave</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- =========================================================
+         3. HERO CON SU FOTO PRINCIPAL Y NOMBRE
+    ========================================================== -->
+    <section class="hero" aria-label="Presentación">
+      <div class="hero-copy">
+        <p class="section-eyebrow">Un rincón nuestro</p>
+        <h1>
+          Siempre es un buen día cuando pienso en ti,
+          <span class="name-highlight">Melissa</span>.
+        </h1>
+        <p class="hero-desc">
+          Quise hacerte un lugar distinto: algo que puedas llevar contigo, abrir cuando quieras sonreír y donde quede claro lo mucho que me importas.
+        </p>
+        <div class="hero-actions">
+          <a href="#libro" class="btn-primary">
+            <span>Abrir nuestro libro</span>
+            <span aria-hidden="true">📖</span>
+          </a>
+          <a href="#abrazo-pixel" class="btn-ghost">
+            <span>Ver abrazo pixel 🐾</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Foto principal -->
+      <figure class="hero-photo-frame" id="heroPhotoCard" tabindex="0" role="button" aria-label="Ampliar o cargar foto principal de Melissa">
+        <div class="washi-tape" aria-hidden="true"></div>
+        <div class="photo-box">
+          <img
+            id="heroPhotoImg"
+            src="WhatsApp Image 2026-11-12 at 19.58.57 (4).jpeg"
+            alt="Melissa sonriendo con sus lentes, camisa a cuadros mostaza y su perrito Shih Tzu"
+            data-caption="Mi foto favorita: esa sonrisa tuya (y tu mejor copiloto) 💛"
+            onerror="if(!this.dataset.triedFallback){this.dataset.triedFallback='1';this.src='melissa-principal.jpg';}else{this.style.display='none';this.nextElementSibling.classList.add('is-visible');}"
+          />
+          <div class="photo-fallback" id="heroPhotoFallback">
+            <strong>Aquí va tu foto favorita de Melissa</strong>
+            <span style="margin-top:0.4rem;">Colócala junto al HTML como <code>WhatsApp Image 2026-11-12 at 19.58.57 (4).jpeg</code> o cárgala aquí mismo:</span>
+            <span class="photo-upload-pill">Elegir foto 📸</span>
+            <input type="file" id="heroPhotoInput" accept="image/*" hidden />
+          </div>
+        </div>
+        <figcaption class="frame-caption">
+          <span>Melissa &amp; compañía</span>
+          <span>🐾💛</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- =========================================================
+         4. EL LIBRO INTERACTIVO (LINK AL PDF DE GOOGLE DRIVE)
+    ========================================================== -->
+    <section class="book-section" id="libro" aria-labelledby="bookHeading">
+      <p class="section-eyebrow">PARA TI, MELISSA</p>
+      <h2 class="section-title" id="bookHeading">Hay unas palabras esperando adentro</h2>
+      <p class="section-lead" style="margin: 0 auto;">
+        Toca la portada para abrirlo. Ahí dejé el enlace directo al texto que me nació escribir desde que empezamos a coincidir.
+      </p>
+
+      <div class="book-stage">
+        <div class="book-3d" id="book3d" role="button" tabindex="0" aria-expanded="false" aria-label="Libro interactivo para Melissa. Toca para abrir">
+          <!-- Páginas interiores -->
+          <div class="book-inside">
+            <div>
+              <p class="book-inside-header">Querida Melissa,</p>
+              <p class="book-inside-text">
+                A veces las palabras dichas de prisa no alcanzan para explicar lo bonito que se siente coincidir contigo. Por eso guardé estas páginas en un PDF solo para ti.
+              </p>
+            </div>
+
+            <div class="book-cta-wrap">
+              <a
+                href="https://drive.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="book-pdf-btn"
+                id="drivePdfLink"
+              >
+                <span>Leer el PDF en Drive</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <button type="button" class="book-close-link" id="closeBookBtn">Cerrar portada</button>
+            </div>
+          </div>
+
+          <!-- Portada 3D ilustrada -->
+          <div class="book-cover">
+            <div class="book-front">
+              <div class="book-cover-art">
+                <div class="book-cover-svg-bg" id="bookCoverSvgSlot"></div>
+                <img
+                  id="customBookCoverImg"
+                  class="book-custom-img"
+                  src=""
+                  alt="Portada ilustrada Para ti, Melissa"
+                  style="display:none;"
+                  onload="this.style.display='block';"
+                  onerror="this.style.display='none';"
+                />
+                <div class="book-banner">
+                  <div class="book-banner-top">Para ti, Melissa</div>
+                  <div class="book-banner-bottom">Amar es enseñar la certeza de elegirse cada día</div>
+                </div>
+              </div>
+              <div class="book-ribbon" aria-hidden="true"></div>
+            </div>
+
+            <div class="book-front-back">
+              <div class="book-exlibris">
+                Ex Libris<br />
+                <strong>Melissa</strong><br />
+                <span style="font-size:0.95rem;">“Con todo mi cariño.”</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. ESCENA INTERACTIVA PIXEL ART: SHIH TZU & GATO TUXEDO
+    ========================================================= -->
+    <section class="hug-section" id="abrazo-pixel" aria-labelledby="hugHeading">
+      <p class="section-eyebrow">Dos compañeros en pixel art</p>
+      <h2 class="section-title" id="hugHeading">Doki y Katherine</h2>
+      <p class="section-lead" style="margin: 0 auto;">
+        Mientras nosotros seguimos platicando, toca el corazón del centro para que Doki y Katherine se acerquen a darse un abrazo.
+      </p>
+
+      <div class="hug-stage" id="hugStage">
+        <!-- Corazón pixel art flotando al abrazarse -->
+        <div class="hug-floating-heart" aria-hidden="true">
+          <svg width="44" height="40" viewBox="0 0 11 10" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="3" height="1" fill="#B83A3E"/>
+            <rect x="7" y="1" width="3" height="1" fill="#B83A3E"/>
+            <rect x="0" y="2" width="5" height="2" fill="#D6454A"/>
+            <rect x="6" y="2" width="5" height="2" fill="#D6454A"/>
+            <rect x="1" y="2" width="1" height="1" fill="#FFD6D8"/>
+            <rect x="0" y="4" width="11" height="2" fill="#B83A3E"/>
+            <rect x="1" y="6" width="9" height="1" fill="#B83A3E"/>
+            <rect x="2" y="7" width="7" height="1" fill="#9E2B2F"/>
+            <rect x="3" y="8" width="5" height="1" fill="#9E2B2F"/>
+            <rect x="4" y="9" width="3" height="1" fill="#9E2B2F"/>
+            <rect x="5" y="10" width="1" height="1" fill="#9E2B2F"/>
+          </svg>
+        </div>
+
+        <div class="hug-arena">
+          <!-- Shih Tzu Pixel Art -->
+          <div class="hug-pet hug-pet--dog" id="hugDogSlot" aria-label="Doki, Shih Tzu pixel art"></div>
+
+          <!-- Botón de Corazón Central -->
+          <button
+            type="button"
+            class="hug-heart-trigger"
+            id="hugHeartBtn"
+            aria-pressed="false"
+            aria-label="Tocar corazón para que Doki y Katherine se abracen"
+          >
+            <svg width="30" height="28" viewBox="0 0 11 10" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="1" y="1" width="3" height="1" fill="#B83A3E"/>
+              <rect x="7" y="1" width="3" height="1" fill="#B83A3E"/>
+              <rect x="0" y="2" width="5" height="2" fill="#B83A3E"/>
+              <rect x="6" y="2" width="5" height="2" fill="#B83A3E"/>
+              <rect x="0" y="4" width="11" height="2" fill="#B83A3E"/>
+              <rect x="1" y="6" width="9" height="1" fill="#B83A3E"/>
+              <rect x="2" y="7" width="7" height="1" fill="#B83A3E"/>
+              <rect x="3" y="8" width="5" height="1" fill="#B83A3E"/>
+              <rect x="4" y="9" width="3" height="1" fill="#B83A3E"/>
+              <rect x="5" y="10" width="1" height="1" fill="#B83A3E"/>
+            </svg>
+          </button>
+
+          <!-- Gato Tuxedo Pixel Art -->
+          <div class="hug-pet hug-pet--cat" id="hugCatSlot" aria-label="Katherine, gato blanco y negro pixel art"></div>
+        </div>
+      </div>
+
+      <p class="hug-status-text" id="hugStatusText">Toca el corazón para juntarlos 💛</p>
+      <button type="button" class="hug-reset-btn" id="hugResetBtn">Volver a separarlos para repetir el abrazo</button>
+    </section>
+
+    <!-- =========================================================
+         6. SHIH TZU PIXEL ART COLOR VACA (INTERACTIVO)
+    ========================================================== -->
+    <section class="pet-playground" id="perrito" aria-labelledby="petHeading">
+      <div class="pet-stage" id="petStage" role="button" tabindex="0" aria-label="Acariciar al Shih Tzu pixel art color vaca">
+        <div class="speech-bubble" id="dogBubble">¡Guau! Tócame para decirte un secreto 🐾</div>
+        <div id="mainDogSlot"></div>
+      </div>
+
+      <div>
+        <p class="section-eyebrow">Guardián oficial de la página</p>
+        <h2 class="section-title" id="petHeading">Un Shih Tzu color vaca para cuidarte</h2>
+        <p class="section-lead">
+          Tiene la misión de sacarte una sonrisa cada vez que entres aquí. Si lo acaricias o le das un premio, te recuerda por qué me encantas.
+        </p>
+
+        <div class="pet-controls">
+          <button type="button" class="pet-btn" id="petHugBtn">Acariciar 🐾</button>
+          <button type="button" class="pet-btn" id="petTreatBtn">Dar premio 🦴</button>
+          <button type="button" class="pet-btn" id="petSpeakBtn">Cosas random que diría Jan 💬</button>
+        </div>
+
+        <div class="love-meter">
+          <span>Nivel de felicidad de la colita: <strong id="lovePercent">45%</strong></span>
+          <div class="love-bar">
+            <div class="love-fill" id="loveFill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         7. CARTITAS INTERACTIVAS
+    ========================================================== -->
+    <section aria-labelledby="notesHeading">
+      <p class="section-eyebrow">Pequeñas verdades</p>
+      <h2 class="section-title" id="notesHeading">Cuatro cosas que adoro de ti</h2>
+      <p class="section-lead">Toca cada tarjeta para descubrir lo que dice.</p>
+
+      <div class="notes-grid" id="notesGrid"></div>
+    </section>
+
+    <!-- =========================================================
+         8. CIERRE ESPECIAL
+    ========================================================= -->
+    <section class="closing-box" aria-labelledby="closingHeading">
+      <h2 id="closingHeading">Con claridad de intención, <em>Melissa</em></h2>
+      <p>
+        Pongo estas páginas en tus manos con la misma calma y devoción con la que fueron concebidas. Aquí una persona que está dispuesta a entregarse a ti de manera entera, limpio en sus propósitos y esperando con paciencia dichosa la oportunidad de demostrarte, día tras día, que esta complicidad merece ser habitada por los dos.
+      </p>
+
+      <!-- Firma manuscrita y dedicatoria justo arriba del botón -->
+      <div class="closing-signature-block">
+        <svg class="closing-signature-svg" viewBox="0 0 320 130" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Firma manuscrita">
+          <!-- Trazo de la letra inicial estilizada (tipo Pi / J) -->
+          <path d="M58 56 C63 45, 76 47, 82 54 C88 60, 102 55, 108 43" stroke="#FAF5EC" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M81 55 C79 65, 77 73, 76 80" stroke="#FAF5EC" stroke-width="3" stroke-linecap="round"/>
+          <path d="M93 54 C91 64, 89 72, 87 79" stroke="#FAF5EC" stroke-width="3" stroke-linecap="round"/>
+          <!-- Bucle diagonal ascendente-descendente característico -->
+          <path d="M123 32 C108 62, 85 95, 62 122 C76 112, 95 90, 109 64 C115 52, 121 40, 123 32 Z" stroke="#FAF5EC" stroke-width="3" stroke-linejoin="round"/>
+          <!-- Continuación cursiva con picos altos y rúbrica transversal -->
+          <path d="M112 69 C117 64, 123 68, 121 76 C128 73, 134 65, 137 57 C136 65, 136 72, 141 73 C147 73, 155 48, 161 20 C160 40, 158 58, 160 66 C163 66, 166 60, 168 56 C168 62, 170 64, 174 62 C176 58, 178 55, 179 53 C179 59, 182 61, 187 58 C191 53, 195 34, 199 16 C198 34, 197 48, 200 52 C203 52, 207 46, 210 42" stroke="#FAF5EC" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Rúbrica diagonal larga cruzando toda la firma -->
+          <path d="M23 99 C76 81, 135 64, 224 44 C232 42, 232 46, 221 50 C175 63, 114 78, 32 97 C112 75, 204 54, 298 41" stroke="#E7AE44" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="closing-signature-line">Tu refugio y tu compañero en el camino.</span>
+      </div>
+
+      <div class="closing-actions">
+        <button type="button" class="btn-warm" id="celebrateBtn">
+          <span>Enviar un abrazo virtual</span>
+          <span aria-hidden="true">💛</span>
+        </button>
+        <a href="#" class="btn-ghost" id="whatsappBtn" style="display:none; background:rgba(255,255,255,0.1); color:#FAF5EC; border-color:rgba(255,255,255,0.25);">
+          <span>Presiona si quieres seguir escribiendo esta historia juntos</span>
+          <span aria-hidden="true">💬</span>
+        </a>
+      </div>
+
+      <!-- Posdata con el escudo del América pixeleado -->
+      <div class="closing-pd">
+        <p class="closing-pd-text">PD. La única red flag que tienes...</p>
+        <button
+          type="button"
+          class="america-pixel-btn"
+          id="americaCrestBtn"
+          aria-label="Escudo del Club América en pixel art. Toca para ver qué pasa"
+        >
+          <span id="americaCrestSlot"></span>
+        </button>
+        <span class="closing-pd-hint" id="americaPdHint">Toca el escudo bajo tu propio riesgo 👀</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Compañero flotante -->
+  <button type="button" class="floating-pup" id="floatingPup" aria-label="Saludar al perrito">
+    <div id="miniDogSlot"></div>
+    <span>¡Guau!</span>
+  </button>
+
+  <!-- Lightbox de fotos -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de foto">
+    <div class="lightbox-inner">
+      <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Cerrar foto">×</button>
+      <img id="lightboxImg" src="" alt="" />
+      <p class="polaroid-note" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       CONFIGURACIÓN FÁCIL: EDITA AQUÍ TUS DATOS
+    ========================================================= */
+    const CONFIG = {
+      // 1. Pega aquí el enlace real de tu PDF en Google Drive:
+      drivePdfUrl: "https://drive.google.com/file/d/TU_ID_DE_PDF_AQUI/view?usp=sharing",
+
+      // 2. Imagen de portada del libro (si la guardas junto al HTML con este nombre,
+      //    reemplazará automáticamente la versión vectorial integrada):
+      bookCoverSrc: "portada-libro.jpg",
+
+      // 3. Opcional: pon tu número con código de país (ej. "5215512345678")
+      //    para activar el botón de WhatsApp al final. Déjalo "" si no lo quieres.
+      whatsappNumber: "",
+      whatsappText: "Holaa, acabo de abrir el sticker y leer la página que hiciste para mí 💛",
+
+      // 4. Frases que dice el Shih Tzu color vaca al tocarlo
+      dogPhrases: [
+        "alch eres mi lugar seguro Melissa",
+        "pa cuando mi moto italika sacada a 235 semanas",
+        "si tus alumnos supieran lo buena onda q es su maestra pedirian tarea doble",
+        "eres mi notificacion favorita de todo el dia",
+        "de conocerse en una app a quererte escribir un libro entero q buen plot twist",
+        "para cuando unos besotes bien aca (ntc puro bait)",
+        "hasta un perro sabe q al america le regalan los penales cada torneo 🐾⚽",
+        "si tuviste un dia pesado en la escuela pasale a acariciarme q aqui no hay prisas 🐮💛",
+        "pumas papa del america zzzzzz",
+        "Sebas sabe cosas",
+        "Pa cuando la cancelacion por homofobica",
+        "Te quiero mucho mucho mucho mucho",
+        "Avísame cuando llegues bien a casa; me quedo más tranquilo sabiendo que ya estás descansando.",
+        "Cuando necesites desconectarte un rato del ruido y de los pendientes, aquí estoy.",
+        "La distancia se hace nula ,cuando se trata de ti"
+      ],
+
+      // 5. Tarjetas secretas
+      notes: [
+        {
+          title: "Madurez",
+          secret: "Me encanta la claridad y el equilibrio con los que ves las cosas. Contigo las pláticas se sienten reales, sin poses ni prisas, y eso me transmite muchísima paz."
+        },
+        {
+          title: "Calidez",
+          secret: "Tienes una forma muy natural de hacer que el ambiente se sienta ligero y cercano. Basta compartir un rato contigo para mejorar el ritmo de cualquier día."
+        },
+        {
+          title: "Paciencia",
+          secret: "Admiro esa calma tan tuya para prestar atención a los detalles y entender lo que otros pasan por alto. Se nota el corazón que le pones a lo que haces."
+        },
+        {
+          title: "Complicidad",
+          secret: "Aunque soy introvertido y a veces me cuesta sacar mucha plática, contigo nunca se siente incómodo. Me encanta cómo sigues la conversación con tanta naturalidad y haces que todo fluya ligero."
+        }
+      ]
+    };
+
+    /* =========================================================
+       SVG PIXEL ART: SHIH TZU COLOR VACA (24x24 CRISP EDGES)
+    ========================================================= */
+    function createCowShihTzuSVG(idSuffix = "") {
+      return `
+        <svg class="pixel-dog-svg" id="dogSvg${idSuffix}" viewBox="0 0 24 24" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Colita animada (mancha negra y punta blanca) -->
+          <g class="dog-tail">
+            <rect x="18" y="14" width="2" height="2" fill="#231D1A"/>
+            <rect x="19" y="12" width="2" height="2" fill="#FFFFFF"/>
+            <rect x="19" y="12" width="2" height="1" fill="#231D1A"/>
+            <rect x="18" y="15" width="1" height="2" fill="#231D1A"/>
+          </g>
+
+          <!-- Cuerpo blanco con manchas tipo vaca -->
+          <rect x="7" y="13" width="10" height="7" fill="#FFFFFF"/>
+          <rect x="6" y="14" width="1" height="5" fill="#231D1A"/>
+          <rect x="17" y="14" width="1" height="5" fill="#231D1A"/>
+          <rect x="12" y="14" width="4" height="3" fill="#231D1A"/>
+          <rect x="13" y="17" width="2" height="1" fill="#231D1A"/>
+          <rect x="7" y="16" width="3" height="2" fill="#231D1A"/>
+          <rect x="8" y="18" width="2" height="1" fill="#231D1A"/>
+
+          <!-- Patitas -->
+          <rect x="7" y="20" width="3" height="2" fill="#FFFFFF"/>
+          <rect x="14" y="20" width="3" height="2" fill="#FFFFFF"/>
+          <rect x="7" y="22" width="3" height="1" fill="#231D1A"/>
+          <rect x="14" y="22" width="3" height="1" fill="#231D1A"/>
+          <rect x="10" y="20" width="4" height="1" fill="#231D1A"/>
+
+          <!-- Collarcito rojo -->
+          <rect x="7" y="12" width="10" height="1.5" fill="#B83A3E"/>
+          <rect x="11" y="13" width="2" height="1.5" fill="#E7AE44"/>
+
+          <!-- Cabeza esponjosa Shih Tzu -->
+          <rect x="6" y="3" width="12" height="9" fill="#FFFFFF"/>
+          <rect x="5" y="4" width="14" height="7" fill="#FFFFFF"/>
+          <rect x="8" y="2" width="8" height="1" fill="#FFFFFF"/>
+
+          <!-- Orejas caídas color vaca -->
+          <rect x="4" y="4" width="2" height="6" fill="#231D1A"/>
+          <rect x="3" y="6" width="1" height="4" fill="#231D1A"/>
+          <rect x="18" y="4" width="2" height="6" fill="#231D1A"/>
+          <rect x="20" y="6" width="1" height="4" fill="#231D1A"/>
+
+          <!-- Manchas faciales -->
+          <rect x="6" y="4" width="4" height="5" fill="#231D1A"/>
+          <rect x="7" y="3" width="3" height="1" fill="#231D1A"/>
+          <rect x="15" y="4" width="3" height="3" fill="#231D1A"/>
+
+          <!-- Ojitos brillantes que parpadean -->
+          <g class="dog-eyes normal-eyes">
+            <rect x="8" y="6" width="1.5" height="2" fill="#0E0B0A"/>
+            <rect x="8" y="6" width="1" height="1" fill="#FFFFFF"/>
+            <rect x="15" y="6" width="1.5" height="2" fill="#0E0B0A"/>
+            <rect x="15" y="6" width="1" height="1" fill="#FFFFFF"/>
+          </g>
+
+          <!-- Ojitos felices arqueados al abrazarse -->
+          <g class="hug-happy-eyes">
+            <rect x="8" y="6" width="2" height="1" fill="#0E0B0A"/>
+            <rect x="14" y="6" width="2" height="1" fill="#0E0B0A"/>
+          </g>
+
+          <!-- Mejillas sonrojadas al abrazarse -->
+          <g class="hug-blush">
+            <rect x="7" y="8" width="2" height="1" fill="#F28D9E"/>
+            <rect x="15" y="8" width="2" height="1" fill="#F28D9E"/>
+          </g>
+
+          <!-- Hocico blanco + nariz + lengüita feliz -->
+          <rect x="9" y="8" width="6" height="3" fill="#FFFFFF"/>
+          <rect x="11" y="8" width="2" height="1.5" fill="#231D1A"/>
+          <rect x="11" y="10" width="2" height="2" fill="#E97B86"/>
+
+          <!-- Patita extendida para el abrazo -->
+          <g class="hug-arm-layer">
+            <rect x="16" y="14" width="4" height="2" fill="#FFFFFF"/>
+            <rect x="19" y="14" width="1" height="2" fill="#231D1A"/>
+          </g>
+        </svg>
+      `;
+    }
+
+    /* =========================================================
+       SVG PIXEL ART: GATO TUXEDO PELUDO (COMO EL DE LA FOTO)
+    ========================================================= */
+    function createTuxedoCatSVG(idSuffix = "") {
+      return `
+        <svg class="pixel-cat-svg" id="catSvg${idSuffix}" viewBox="0 0 24 24" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Cola negra peluda -->
+          <g class="cat-tail">
+            <rect x="18" y="15" width="2" height="3" fill="#181516"/>
+            <rect x="19" y="12" width="2" height="4" fill="#181516"/>
+            <rect x="20" y="10" width="2" height="3" fill="#2B2628"/>
+          </g>
+
+          <!-- Cuerpo negro con pecho blanco muy esponjoso -->
+          <rect x="7" y="13" width="10" height="7" fill="#181516"/>
+          <rect x="8" y="12" width="8" height="7" fill="#FFFFFF"/>
+          <rect x="7" y="13" width="1" height="4" fill="#FFFFFF"/>
+          <rect x="16" y="13" width="1" height="4" fill="#FFFFFF"/>
+          <rect x="9" y="19" width="6" height="1" fill="#F2EFE9"/>
+
+          <!-- Patitas delanteras blancas -->
+          <rect x="8" y="20" width="3" height="2" fill="#FFFFFF"/>
+          <rect x="13" y="20" width="3" height="2" fill="#FFFFFF"/>
+          <rect x="8" y="22" width="3" height="1" fill="#2B2628"/>
+          <rect x="13" y="22" width="3" height="1" fill="#2B2628"/>
+
+          <!-- Orejas puntiagudas negras -->
+          <rect x="6" y="1" width="2" height="3" fill="#181516"/>
+          <rect x="5" y="3" width="4" height="2" fill="#181516"/>
+          <rect x="7" y="2" width="1" height="2" fill="#6E5D63"/>
+
+          <rect x="16" y="1" width="2" height="3" fill="#181516"/>
+          <rect x="15" y="3" width="4" height="2" fill="#181516"/>
+          <rect x="16" y="2" width="1" height="2" fill="#6E5D63"/>
+
+          <!-- Cabeza negra peluda y esponjosa -->
+          <rect x="5" y="5" width="14" height="7" fill="#181516"/>
+          <rect x="4" y="6" width="16" height="5" fill="#181516"/>
+          <rect x="3" y="7" width="1" height="3" fill="#2B2628"/>
+          <rect x="20" y="7" width="1" height="3" fill="#2B2628"/>
+
+          <!-- Mancha blanca en triángulo entre los ojos y hocico blanco -->
+          <rect x="11" y="5" width="2" height="2" fill="#FFFFFF"/>
+          <rect x="10" y="7" width="4" height="2" fill="#FFFFFF"/>
+          <rect x="7" y="9" width="10" height="3" fill="#FFFFFF"/>
+          <rect x="8" y="11" width="8" height="1" fill="#F2EFE9"/>
+
+          <!-- Ojos verdosos expresivos (estado normal) -->
+          <g class="dog-eyes normal-eyes">
+            <rect x="7" y="6" width="3" height="2" fill="#7D9B56"/>
+            <rect x="8" y="6" width="1" height="2" fill="#121011"/>
+            <rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/>
+
+            <rect x="14" y="6" width="3" height="2" fill="#7D9B56"/>
+            <rect x="15" y="6" width="1" height="2" fill="#121011"/>
+            <rect x="14" y="6" width="1" height="1" fill="#FFFFFF"/>
+          </g>
+
+          <!-- Ojitos felices arqueados al abrazarse -->
+          <g class="hug-happy-eyes">
+            <rect x="7" y="7" width="3" height="1" fill="#FFFFFF"/>
+            <rect x="14" y="7" width="3" height="1" fill="#FFFFFF"/>
+          </g>
+
+          <!-- Mejillas sonrojadas al abrazarse -->
+          <g class="hug-blush">
+            <rect x="6" y="9" width="2" height="1" fill="#F28D9E"/>
+            <rect x="16" y="9" width="2" height="1" fill="#F28D9E"/>
+          </g>
+
+          <!-- Naricita rosa -->
+          <rect x="11" y="9" width="2" height="1" fill="#F28D9E"/>
+          <rect x="11" y="10" width="2" height="1" fill="#E36D82"/>
+
+          <!-- Bigotes blancos largos en pixel art -->
+          <rect x="2" y="8" width="4" height="1" fill="#FFFFFF" opacity="0.9"/>
+          <rect x="1" y="10" width="5" height="1" fill="#FFFFFF" opacity="0.9"/>
+          <rect x="18" y="8" width="4" height="1" fill="#FFFFFF" opacity="0.9"/>
+          <rect x="18" y="10" width="5" height="1" fill="#FFFFFF" opacity="0.9"/>
+
+          <!-- Patita blanca extendida hacia la izquierda para abrazar al Shih Tzu -->
+          <g class="hug-arm-layer">
+            <rect x="4" y="14" width="4" height="2" fill="#FFFFFF"/>
+            <rect x="3" y="14" width="1" height="2" fill="#F2EFE9"/>
+          </g>
+        </svg>
+      `;
+    }
+
+    /* =========================================================
+       SVG PIXEL ART: PORTADA DEL LIBRO (MELISSA, SHIH TZU Y BANDERA)
+    ========================================================= */
+    function createBookCoverPixelSVG() {
+      return `
+        <svg viewBox="0 0 64 86" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Cielo y horizonte -->
+          <rect x="0" y="0" width="64" height="86" fill="#6FB4E8"/>
+          <rect x="0" y="48" width="64" height="22" fill="#92C9F2"/>
+          <rect x="34" y="68" width="30" height="18" fill="#4B3428"/>
+
+          <!-- Nube pixel art -->
+          <rect x="48" y="23" width="8" height="2" fill="#FFFFFF"/>
+          <rect x="45" y="25" width="14" height="3" fill="#FFFFFF"/>
+          <rect x="44" y="28" width="16" height="2" fill="#E6F3FC"/>
+
+          <!-- Bandera ondeando (Rojo, Blanco, Verde) -->
+          <rect x="4" y="11" width="6" height="28" fill="#C92A2A"/>
+          <rect x="10" y="8" width="7" height="28" fill="#D93232"/>
+          <rect x="17" y="5" width="6" height="27" fill="#B82222"/>
+          <rect x="23" y="3" width="7" height="26" fill="#F8FAFC"/>
+          <rect x="30" y="1" width="7" height="26" fill="#E2E8F0"/>
+          <rect x="37" y="0" width="8" height="24" fill="#1F7A3E"/>
+          <rect x="45" y="0" width="8" height="21" fill="#166230"/>
+
+          <!-- Nopales a la derecha -->
+          <rect x="42" y="54" width="18" height="26" fill="#2A5E26"/>
+          <rect x="37" y="50" width="8" height="10" fill="#3B8235"/>
+          <rect x="38" y="49" width="6" height="1" fill="#4E9E47"/>
+          <rect x="53" y="46" width="9" height="12" fill="#3B8235"/>
+          <rect x="55" y="45" width="5" height="1" fill="#4E9E47"/>
+          <rect x="46" y="58" width="11" height="13" fill="#46913F"/>
+          <rect x="57" y="61" width="7" height="14" fill="#326E2D"/>
+          <rect x="40" y="52" width="1" height="1" fill="#CBE8A8"/>
+          <rect x="56" y="49" width="1" height="1" fill="#CBE8A8"/>
+          <rect x="50" y="62" width="1" height="1" fill="#CBE8A8"/>
+
+          <!-- Shih Tzu con moñito sobre los nopales -->
+          <rect x="42" y="31" width="4" height="2" fill="#F7EFE6"/>
+          <rect x="43" y="33" width="2" height="1" fill="#B83A3E"/>
+          <rect x="39" y="34" width="10" height="7" fill="#F7EFE6"/>
+          <rect x="38" y="35" width="2" height="5" fill="#241C18"/>
+          <rect x="48" y="35" width="2" height="5" fill="#241C18"/>
+          <rect x="40" y="35" width="2" height="2" fill="#241C18"/>
+          <rect x="46" y="35" width="2" height="2" fill="#241C18"/>
+          <rect x="41" y="36" width="1" height="1" fill="#FFFFFF"/>
+          <rect x="46" y="36" width="1" height="1" fill="#FFFFFF"/>
+          <rect x="43" y="38" width="2" height="1" fill="#241C18"/>
+          <rect x="43" y="39" width="2" height="2" fill="#E87A86"/>
+          <rect x="35" y="41" width="13" height="7" fill="#F7EFE6"/>
+          <rect x="38" y="43" width="4" height="3" fill="#241C18"/>
+          <rect x="34" y="42" width="2" height="3" fill="#F7EFE6"/>
+          <rect x="36" y="48" width="2" height="2" fill="#F7EFE6"/>
+          <rect x="45" y="48" width="2" height="2" fill="#F7EFE6"/>
+
+          <!-- Asta de madera inclinada -->
+          <rect x="53" y="0" width="2" height="14" fill="#8B4D24"/>
+          <rect x="52" y="14" width="2" height="16" fill="#8B4D24"/>
+          <rect x="51" y="30" width="2" height="16" fill="#8B4D24"/>
+          <rect x="50" y="46" width="2" height="16" fill="#8B4D24"/>
+          <rect x="49" y="62" width="2" height="24" fill="#8B4D24"/>
+          <rect x="54" y="0" width="1" height="14" fill="#B56D3B"/>
+          <rect x="53" y="14" width="1" height="16" fill="#B56D3B"/>
+          <rect x="52" y="30" width="1" height="16" fill="#B56D3B"/>
+          <rect x="51" y="46" width="1" height="16" fill="#B56D3B"/>
+
+          <!-- Melissa (Cabello rizado, lentes, blusa verde con estrellas y suéter lila) -->
+          <rect x="13" y="18" width="22" height="26" fill="#241712"/>
+          <rect x="11" y="21" width="26" height="21" fill="#241712"/>
+          <rect x="10" y="25" width="28" height="15" fill="#2D1D17"/>
+          <rect x="12" y="20" width="2" height="2" fill="#3D2820"/>
+          <rect x="33" y="22" width="2" height="2" fill="#3D2820"/>
+          <rect x="11" y="32" width="2" height="2" fill="#3D2820"/>
+          <rect x="34" y="33" width="2" height="2" fill="#3D2820"/>
+
+          <!-- Rostro -->
+          <rect x="17" y="24" width="14" height="14" fill="#F5D0BC"/>
+          <rect x="18" y="38" width="12" height="2" fill="#E8B9A2"/>
+          <!-- Flequillo -->
+          <rect x="16" y="22" width="16" height="3" fill="#241712"/>
+          <rect x="18" y="25" width="3" height="1" fill="#241712"/>
+          <rect x="24" y="25" width="4" height="1" fill="#241712"/>
+
+          <!-- Cejas y lentes -->
+          <rect x="18" y="27" width="4" height="1" fill="#241712"/>
+          <rect x="26" y="27" width="4" height="1" fill="#241712"/>
+          <rect x="17" y="29" width="6" height="1" fill="#2A211C"/>
+          <rect x="17" y="33" width="6" height="1" fill="#2A211C"/>
+          <rect x="17" y="29" width="1" height="5" fill="#2A211C"/>
+          <rect x="22" y="29" width="1" height="5" fill="#2A211C"/>
+          <rect x="23" y="30" width="2" height="1" fill="#2A211C"/>
+          <rect x="25" y="29" width="6" height="1" fill="#2A211C"/>
+          <rect x="25" y="33" width="6" height="1" fill="#2A211C"/>
+          <rect x="25" y="29" width="1" height="5" fill="#2A211C"/>
+          <rect x="30" y="29" width="1" height="5" fill="#2A211C"/>
+          <!-- Ojos -->
+          <rect x="19" y="30" width="2" height="2" fill="#2D1D17"/>
+          <rect x="19" y="30" width="1" height="1" fill="#FFFFFF"/>
+          <rect x="27" y="30" width="2" height="2" fill="#2D1D17"/>
+          <rect x="27" y="30" width="1" height="1" fill="#FFFFFF"/>
+          <!-- Mejillas y sonrisa -->
+          <rect x="18" y="34" width="2" height="1" fill="#E89A90"/>
+          <rect x="28" y="34" width="2" height="1" fill="#E89A90"/>
+          <rect x="22" y="35" width="4" height="1" fill="#B85652"/>
+
+          <!-- Cuello -->
+          <rect x="21" y="40" width="6" height="3" fill="#E8B9A2"/>
+
+          <!-- Blusa verde con estrellitas amarillas -->
+          <rect x="17" y="43" width="15" height="26" fill="#74B865"/>
+          <rect x="20" y="47" width="1" height="1" fill="#F7D844"/>
+          <rect x="27" y="49" width="1" height="1" fill="#F7D844"/>
+          <rect x="23" y="53" width="1" height="1" fill="#F7D844"/>
+          <rect x="19" y="57" width="1" height="1" fill="#F7D844"/>
+          <rect x="28" y="59" width="1" height="1" fill="#F7D844"/>
+
+          <!-- Suéter / cárdigan lila -->
+          <rect x="11" y="43" width="7" height="28" fill="#D6D3E8"/>
+          <rect x="9" y="46" width="3" height="24" fill="#BCB8D4"/>
+          <rect x="30" y="43" width="6" height="25" fill="#D6D3E8"/>
+          <rect x="34" y="52" width="13" height="7" fill="#D6D3E8"/>
+          <rect x="34" y="58" width="13" height="2" fill="#B4B0CC"/>
+          <rect x="47" y="51" width="5" height="6" fill="#F5D0BC"/>
+          <rect x="48" y="50" width="3" height="1" fill="#E8B9A2"/>
+
+          <!-- Pantalón oscuro -->
+          <rect x="16" y="69" width="18" height="17" fill="#252D3A"/>
+          <rect x="24" y="72" width="1" height="14" fill="#1A2029"/>
+        </svg>
+      `;
+    }
+
+    /* =========================================================
+       SVG PIXEL ART: ESCUDO DEL CLUB AMÉRICA (28x28 CRISP EDGES)
+    ========================================================= */
+    function createAmericaCrestPixelSVG() {
+      return `
+        <svg viewBox="0 0 28 28" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Borde exterior amarillo -->
+          <rect x="9" y="1" width="10" height="26" fill="#FFE600"/>
+          <rect x="6" y="2" width="16" height="24" fill="#FFE600"/>
+          <rect x="4" y="4" width="20" height="20" fill="#FFE600"/>
+          <rect x="2" y="6" width="24" height="16" fill="#FFE600"/>
+          <rect x="1" y="9" width="26" height="10" fill="#FFE600"/>
+
+          <!-- Anillo azul marino -->
+          <rect x="9" y="2" width="10" height="24" fill="#0A1C3E"/>
+          <rect x="6" y="3" width="16" height="22" fill="#0A1C3E"/>
+          <rect x="4" y="5" width="20" height="18" fill="#0A1C3E"/>
+          <rect x="3" y="7" width="22" height="14" fill="#0A1C3E"/>
+          <rect x="2" y="9" width="24" height="10" fill="#0A1C3E"/>
+
+          <!-- Interior amarillo del balón -->
+          <rect x="10" y="4" width="8" height="20" fill="#FFE600"/>
+          <rect x="7" y="5" width="14" height="18" fill="#FFE600"/>
+          <rect x="5" y="7" width="18" height="14" fill="#FFE600"/>
+          <rect x="4" y="10" width="20" height="8" fill="#FFE600"/>
+
+          <!-- Líneas del balón en azul marino -->
+          <rect x="7" y="6" width="2" height="2" fill="#0A1C3E"/>
+          <rect x="19" y="6" width="2" height="2" fill="#0A1C3E"/>
+          <rect x="8" y="8" width="12" height="1" fill="#0A1C3E"/>
+          <rect x="8" y="19" width="12" height="1" fill="#0A1C3E"/>
+          <rect x="7" y="20" width="2" height="2" fill="#0A1C3E"/>
+          <rect x="19" y="20" width="2" height="2" fill="#0A1C3E"/>
+
+          <!-- Silueta del continente americano en azul marino -->
+          <rect x="12" y="4" width="3" height="2" fill="#0A1C3E"/>
+          <rect x="10" y="6" width="6" height="3" fill="#0A1C3E"/>
+          <rect x="11" y="9" width="5" height="3" fill="#0A1C3E"/>
+          <rect x="12" y="12" width="3" height="2" fill="#0A1C3E"/>
+          <rect x="13" y="14" width="2" height="2" fill="#0A1C3E"/>
+          <rect x="13" y="16" width="4" height="3" fill="#0A1C3E"/>
+          <rect x="14" y="19" width="3" height="3" fill="#0A1C3E"/>
+          <rect x="14" y="22" width="2" height="2" fill="#0A1C3E"/>
+
+          <!-- Contorno azul marino para letras C y A -->
+          <rect x="4" y="10" width="6" height="8" fill="#0A1C3E"/>
+          <rect x="18" y="10" width="6" height="8" fill="#0A1C3E"/>
+
+          <!-- Letra C roja -->
+          <rect x="6" y="11" width="3" height="1" fill="#E62E2D"/>
+          <rect x="5" y="12" width="2" height="4" fill="#E62E2D"/>
+          <rect x="6" y="16" width="3" height="1" fill="#E62E2D"/>
+
+          <!-- Letra A roja -->
+          <rect x="20" y="11" width="2" height="1" fill="#E62E2D"/>
+          <rect x="19" y="12" width="1" height="5" fill="#E62E2D"/>
+          <rect x="22" y="12" width="1" height="5" fill="#E62E2D"/>
+          <rect x="20" y="14" width="2" height="1" fill="#E62E2D"/>
+        </svg>
+      `;
+    }
+
+    // Insertamos las ilustraciones Pixel Art de forma segura
+    function mountSlot(id, markup) {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = markup;
+    }
+
+    mountSlot("gateDogSlot", createCowShihTzuSVG("Gate"));
+    mountSlot("mainDogSlot", createCowShihTzuSVG("Main"));
+    mountSlot("miniDogSlot", createCowShihTzuSVG("Mini"));
+    mountSlot("hugDogSlot", createCowShihTzuSVG("Hug"));
+    mountSlot("hugCatSlot", createTuxedoCatSVG("Hug"));
+    mountSlot("bookCoverSvgSlot", createBookCoverPixelSVG());
+    mountSlot("americaCrestSlot", createAmericaCrestPixelSVG());
+
+    /* =========================================================
+       AUDIO SUAVE SINTETIZADO (SIN ARCHIVOS EXTERNOS)
+    ========================================================= */
+    let audioCtx = null;
+    let soundEnabled = false;
+
+    function playChime(freq = 523.25, duration = 0.25) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (_) {}
+    }
+
+    const soundToggle = document.getElementById("soundToggle");
+    if (soundToggle) {
+      soundToggle.addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        soundToggle.setAttribute("aria-pressed", String(soundEnabled));
+        document.getElementById("soundIcon").textContent = soundEnabled ? "🔊" : "🔈";
+        document.getElementById("soundLabel").textContent = soundEnabled ? "Sonido activo" : "Sonido suave";
+        if (soundEnabled) playChime(659.25, 0.3);
+      });
+    }
+
+    /* =========================================================
+       APERTURA DESDE STICKER NFC (PANTALLA DE BIENVENIDA)
+    ========================================================= */
+    const nfcGate = document.getElementById("nfcGate");
+    const openExperienceBtn = document.getElementById("openExperienceBtn");
+    if (openExperienceBtn && nfcGate) {
+      openExperienceBtn.addEventListener("click", () => {
+        nfcGate.classList.add("is-opened");
+        soundEnabled = true;
+        if (soundToggle) {
+          soundToggle.setAttribute("aria-pressed", "true");
+          document.getElementById("soundIcon").textContent = "🔊";
+          document.getElementById("soundLabel").textContent = "Sonido activo";
+        }
+        playChime(523.25, 0.25);
+        setTimeout(() => playChime(659.25, 0.28), 110);
+        setTimeout(() => playChime(783.99, 0.4), 220);
+        spawnHearts(window.innerWidth / 2, window.innerHeight / 2, 8);
+      });
+    }
+
+    /* =========================================================
+       LIBRO INTERACTIVO 3D + LINK DE DRIVE
+    ========================================================= */
+    const drivePdfLink = document.getElementById("drivePdfLink");
+    if (drivePdfLink) {
+      drivePdfLink.href = CONFIG.drivePdfUrl;
+    }
+
+    const customBookCoverImg = document.getElementById("customBookCoverImg");
+    if (customBookCoverImg && CONFIG.bookCoverSrc) {
+      customBookCoverImg.src = CONFIG.bookCoverSrc;
+    }
+
+    const book3d = document.getElementById("book3d");
+    const closeBookBtn = document.getElementById("closeBookBtn");
+
+    function toggleBook(forceState) {
+      const next = typeof forceState === "boolean" ? forceState : !book3d.classList.contains("is-open");
+      book3d.classList.toggle("is-open", next);
+      book3d.setAttribute("aria-expanded", String(next));
+      if (next) {
+        playChime(587.33, 0.3);
+      }
+    }
+
+    book3d.addEventListener("click", (e) => {
+      if (e.target.closest("#drivePdfLink") || e.target.closest("#closeBookBtn")) return;
+      if (!book3d.classList.contains("is-open")) {
+        toggleBook(true);
+      }
+    });
+
+    book3d.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggleBook();
+      }
+    });
+
+    closeBookBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleBook(false);
+    });
+
+    /* =========================================================
+       ABRAZO INTERACTIVO PIXEL ART (SHIH TZU + GATO TUXEDO)
+    ========================================================= */
+    const hugStage = document.getElementById("hugStage");
+    const hugHeartBtn = document.getElementById("hugHeartBtn");
+    const hugStatusText = document.getElementById("hugStatusText");
+    const hugResetBtn = document.getElementById("hugResetBtn");
+
+    const hugMessages = [
+      "¡Abrazados! Así se siente cada vez que pienso en ti, Melissa 💛",
+      "¡Apretón extra de cariño! Ni la distancia nos separa 🐾💞",
+      "Dos compañeritos felices de estar juntos ✨🐱🐶"
+    ];
+    let hugCount = 0;
+
+    hugHeartBtn.addEventListener("click", () => {
+      const alreadyHugging = hugStage.classList.contains("is-hugging");
+      hugStage.classList.add("is-hugging");
+      hugHeartBtn.setAttribute("aria-pressed", "true");
+      hugResetBtn.classList.add("is-visible");
+
+      if (alreadyHugging) {
+        hugStage.classList.remove("is-squeeze");
+        void hugStage.offsetWidth;
+        hugStage.classList.add("is-squeeze");
+        setTimeout(() => hugStage.classList.remove("is-squeeze"), 450);
+      }
+
+      hugStatusText.textContent = hugMessages[hugCount % hugMessages.length];
+      hugCount++;
+
+      playChime(523.25, 0.22);
+      setTimeout(() => playChime(659.25, 0.24), 100);
+      setTimeout(() => playChime(783.99, 0.32), 200);
+
+      const rect = hugStage.getBoundingClientRect();
+      spawnHearts(rect.left + rect.width / 2, rect.top + rect.height / 2, 10);
+    });
+
+    hugResetBtn.addEventListener("click", () => {
+      hugStage.classList.remove("is-hugging", "is-squeeze");
+      hugHeartBtn.setAttribute("aria-pressed", "false");
+      hugResetBtn.classList.remove("is-visible");
+      hugStatusText.textContent = "Toca el corazón para juntarlos 💛";
+      playChime(440, 0.18);
+    });
+
+    /* =========================================================
+       FOTO PRINCIPAL Y LIGHTBOX
+    ========================================================= */
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxCaption = document.getElementById("lightboxCaption");
+
+    const heroPhotoImg = document.getElementById("heroPhotoImg");
+    const heroPhotoFallback = document.getElementById("heroPhotoFallback");
+    const heroPhotoInput = document.getElementById("heroPhotoInput");
+
+    document.getElementById("heroPhotoCard").addEventListener("click", (e) => {
+      if (e.target === heroPhotoInput) return;
+      if (heroPhotoFallback.classList.contains("is-visible")) {
+        heroPhotoInput.click();
+        return;
+      }
+      openLightbox(heroPhotoImg.currentSrc || heroPhotoImg.getAttribute("src"), heroPhotoImg.dataset.caption);
+    });
+
+    heroPhotoInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const objectUrl = URL.createObjectURL(file);
+      heroPhotoImg.src = objectUrl;
+      heroPhotoImg.style.display = "block";
+      heroPhotoFallback.classList.remove("is-visible");
+      playChime(659.25, 0.25);
+    });
+
+    function openLightbox(src, caption) {
+      lightboxImg.src = src;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add("is-open");
+      playChime(698.46, 0.2);
+    }
+
+    document.getElementById("lightboxClose").addEventListener("click", () => {
+      lightbox.classList.remove("is-open");
+    });
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) lightbox.classList.remove("is-open");
+    });
+
+    /* =========================================================
+       INTERACCIÓN CON EL SHIH TZU PIXEL ART COLOR VACA
+    ========================================================= */
+    let phraseIdx = 0;
+    let happiness = 45;
+    const dogBubble = document.getElementById("dogBubble");
+    const mainDogSvg = document.getElementById("dogSvgMain");
+    const loveFill = document.getElementById("loveFill");
+    const lovePercent = document.getElementById("lovePercent");
+
+    function interactWithDog(event, customPhrase = null, boost = 12) {
+      mainDogSvg.classList.remove("is-jumping");
+      void mainDogSvg.offsetWidth;
+      mainDogSvg.classList.add("is-jumping", "happy-fast");
+      setTimeout(() => mainDogSvg.classList.remove("happy-fast"), 1200);
+
+      if (customPhrase) {
+        dogBubble.textContent = customPhrase;
+      } else {
+        dogBubble.textContent = CONFIG.dogPhrases[phraseIdx % CONFIG.dogPhrases.length];
+        phraseIdx++;
+      }
+
+      happiness = Math.min(100, happiness + boost);
+      loveFill.style.width = happiness + "%";
+      lovePercent.textContent = happiness === 100 ? "¡100% Enamorado de ti!" : happiness + "%";
+
+      playChime(783.99, 0.14);
+      setTimeout(() => playChime(987.77, 0.18), 80);
+
+      const rect = (event?.currentTarget || mainDogSvg).getBoundingClientRect();
+      spawnHearts(rect.left + rect.width / 2, rect.top + 30, 5);
+    }
+
+    document.getElementById("petStage").addEventListener("click", (e) => interactWithDog(e));
+    document.getElementById("petHugBtn").addEventListener("click", (e) => interactWithDog(e, "¡Mueve la colita feliz por tu abrazo! 🐾💛", 15));
+    document.getElementById("petTreatBtn").addEventListener("click", (e) => interactWithDog(e, "¡Ñam ñam! Gracias por la galletita 🦴✨", 20));
+    document.getElementById("petSpeakBtn").addEventListener("click", (e) => interactWithDog(e, null, 10));
+
+    document.getElementById("floatingPup").addEventListener("click", (e) => {
+      document.getElementById("perrito").scrollIntoView({ behavior: "smooth", block: "center" });
+      interactWithDog(e);
+    });
+
+    /* =========================================================
+       CARTITAS SECRETAS
+    ========================================================= */
+    const notesGrid = document.getElementById("notesGrid");
+    CONFIG.notes.forEach((item, idx) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "note-card";
+      card.innerHTML = `
+        <div class="note-front">
+          <span class="note-num">#0${idx + 1}</span>
+          <span class="note-prompt">${item.title}</span>
+          <span class="note-tap">Toca para revelar ✦</span>
+        </div>
+        <div class="note-secret">${item.secret}</div>
+      `;
+      card.addEventListener("click", () => {
+        card.classList.toggle("is-revealed");
+        if (card.classList.contains("is-revealed")) {
+          playChime(659.25, 0.22);
+          const r = card.getBoundingClientRect();
+          spawnHearts(r.left + r.width / 2, r.top + 20, 3);
+        }
+      });
+      notesGrid.appendChild(card);
+    });
+
+    /* =========================================================
+       CIERRE Y PARTÍCULAS DE CORAZONES
+    ========================================================= */
+    function spawnHearts(x, y, count = 6) {
+      const icons = ["💛", "🐾", "❤️", "✨"];
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement("span");
+        el.className = "pixel-heart-particle";
+        el.textContent = icons[Math.floor(Math.random() * icons.length)];
+        el.style.left = `${x + (Math.random() - 0.5) * 60}px`;
+        el.style.top = `${y + (Math.random() - 0.5) * 20}px`;
+        el.style.setProperty("--tx", `${(Math.random() - 0.5) * 90}px`);
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1350);
+      }
+    }
+
+    document.getElementById("celebrateBtn").addEventListener("click", (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      spawnHearts(r.left + r.width / 2, r.top, 16);
+      playChime(523.25, 0.2);
+      setTimeout(() => playChime(659.25, 0.2), 120);
+      setTimeout(() => playChime(783.99, 0.35), 240);
+      e.currentTarget.innerHTML = "<span>¡Ahora ,unos besotes o que? (NTC ES BAIT ,NO ME FUNES EN EL TENDEDERO)</span><span>💛✨</span>";
+    });
+
+    /* =========================================================
+       INTERACCIÓN DE POSDATA (ESCUDO DEL AMÉRICA -> RATAS Y RED FLAGS)
+    ========================================================= */
+    function spawnRedFlagParticles(x, y, count = 14) {
+      const icons = ["🚩", "🐀", "🚩", "🐀", "🐭"];
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement("span");
+        el.className = "pixel-heart-particle";
+        el.textContent = icons[Math.floor(Math.random() * icons.length)];
+        el.style.left = `${x + (Math.random() - 0.5) * 90}px`;
+        el.style.top = `${y + (Math.random() - 0.5) * 30}px`;
+        el.style.setProperty("--tx", `${(Math.random() - 0.5) * 140}px`);
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1350);
+      }
+    }
+
+    const americaCrestBtn = document.getElementById("americaCrestBtn");
+    const americaPdHint = document.getElementById("americaPdHint");
+    const americaJokes = [
+      "⚠️ Alerta máxima de red flag detectada: le va al América 🚩🐀 (pero igual te quiero)",
+      "🐀🚩 Penal para el América... digo, ¡otra red flag desbloqueada!",
+      "Ni con todas estas ratas y red flags dejas de encantarme, Melissa 💛🚩🐀"
+    ];
+    let americaTapCount = 0;
+
+    americaCrestBtn.addEventListener("click", (e) => {
+      americaCrestBtn.classList.remove("is-shaking");
+      void americaCrestBtn.offsetWidth;
+      americaCrestBtn.classList.add("is-shaking");
+
+      const r = e.currentTarget.getBoundingClientRect();
+      spawnRedFlagParticles(r.left + r.width / 2, r.top + 10, 16);
+
+      americaPdHint.textContent = americaJokes[americaTapCount % americaJokes.length];
+      americaPdHint.classList.add("is-alert");
+      americaTapCount++;
+
+      playChime(329.63, 0.16);
+      setTimeout(() => playChime(261.63, 0.24), 100);
+    });
+
+    // Activar botón de WhatsApp si agregaste tu número en CONFIG
+    if (CONFIG.whatsappNumber.trim() !== "") {
+      const wa = document.getElementById("whatsappBtn");
+      wa.style.display = "inline-flex";
+      wa.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappText)}`;
+    }
+  </script>
+</body>
+</html>
